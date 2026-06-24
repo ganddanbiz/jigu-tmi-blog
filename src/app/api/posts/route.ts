@@ -2,15 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import pool from "@/lib/db";
 import { generateSlug, verifyAdminKey } from "@/lib/seo";
-import { RowDataPacket, ResultSetHeader } from "mysql2";
-
-// ISO 8601 datetime → MySQL DATETIME 형식 변환
-function toMysqlDatetime(value: string | null | undefined): string | null {
-  if (!value) return null;
-  const d = new Date(value);
-  if (isNaN(d.getTime())) return null;
-  return d.toISOString().slice(0, 19).replace("T", " ");
-}
 
 export async function GET(request: NextRequest) {
   try {
@@ -24,32 +15,33 @@ export async function GET(request: NextRequest) {
     let dataQuery = `
       SELECT id, title, slug, category, thumbnail_url, meta_description,
              published_at, created_at, view_count
-      FROM posts
-      WHERE status = 'published'
+      FROM posts WHERE status = 'published'
     `;
-    const params: (string | number)[] = [];
     const countParams: (string | number)[] = [];
+    const dataParams: (string | number)[] = [];
+    let paramIdx = 1;
 
     if (category) {
-      countQuery += " AND category = ?";
-      dataQuery += " AND category = ?";
-      params.push(category);
+      countQuery += ` AND category = $${paramIdx}`;
+      dataQuery += ` AND category = $${paramIdx}`;
       countParams.push(category);
+      dataParams.push(category);
+      paramIdx++;
     }
 
-    dataQuery += " ORDER BY published_at DESC LIMIT ? OFFSET ?";
-    params.push(limit, offset);
+    dataQuery += ` ORDER BY published_at DESC LIMIT $${paramIdx} OFFSET $${paramIdx + 1}`;
+    dataParams.push(limit, offset);
 
-    const [[{ total }]] = await pool.query<RowDataPacket[]>(countQuery, countParams);
-    const [posts] = await pool.query<RowDataPacket[]>(dataQuery, params);
+    const { rows: [{ total }] } = await pool.query(countQuery, countParams);
+    const { rows: posts } = await pool.query(dataQuery, dataParams);
 
     return NextResponse.json({
       posts,
       pagination: {
-        total,
+        total: Number(total),
         page,
         limit,
-        totalPages: Math.ceil(total / limit),
+        totalPages: Math.ceil(Number(total) / limit),
       },
     });
   } catch (error) {
@@ -73,9 +65,10 @@ export async function POST(request: NextRequest) {
 
     const finalSlug = slug || generateSlug(title);
 
-    const [result] = await pool.query<ResultSetHeader>(
+    const { rows: [result] } = await pool.query(
       `INSERT INTO posts (title, content, slug, category, thumbnail_url, meta_description, keywords, status, published_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+       RETURNING id`,
       [
         title,
         content,
@@ -85,7 +78,7 @@ export async function POST(request: NextRequest) {
         meta_description || null,
         keywords || null,
         status || "draft",
-        toMysqlDatetime(published_at),
+        published_at || null,
       ]
     );
 
@@ -94,9 +87,9 @@ export async function POST(request: NextRequest) {
       revalidatePath(`/posts/${finalSlug}`);
     }
 
-    return NextResponse.json({ id: result.insertId, slug: finalSlug }, { status: 201 });
+    return NextResponse.json({ id: result.id, slug: finalSlug }, { status: 201 });
   } catch (error: unknown) {
-    if (error instanceof Error && "code" in error && (error as NodeJS.ErrnoException).code === "ER_DUP_ENTRY") {
+    if (error instanceof Error && (error as { code?: string }).code === "23505") {
       return NextResponse.json({ error: "slug already exists" }, { status: 409 });
     }
     console.error("POST /api/posts error:", error);

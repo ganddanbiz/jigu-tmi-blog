@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import pool from "@/lib/db";
-import { RowDataPacket } from "mysql2";
 import { verifyAdminKey } from "@/lib/seo";
 
 export async function DELETE(
@@ -16,8 +15,8 @@ export async function DELETE(
       return NextResponse.json({ error: "Invalid id" }, { status: 400 });
     }
 
-    const [[comment]] = await pool.query<RowDataPacket[]>(
-      "SELECT id, password FROM comments WHERE id = ?",
+    const { rows: [comment] } = await pool.query(
+      "SELECT id, password FROM comments WHERE id = $1",
       [commentId]
     );
 
@@ -25,13 +24,11 @@ export async function DELETE(
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    // 관리자 인증
     if (verifyAdminKey(request)) {
-      await pool.query("DELETE FROM comments WHERE id = ?", [commentId]);
+      await pool.query("DELETE FROM comments WHERE id = $1", [commentId]);
       return NextResponse.json({ success: true });
     }
 
-    // 비밀번호 검증
     const body = await request.json().catch(() => ({}));
     const { password } = body;
 
@@ -44,7 +41,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Wrong password" }, { status: 403 });
     }
 
-    await pool.query("DELETE FROM comments WHERE id = ?", [commentId]);
+    await pool.query("DELETE FROM comments WHERE id = $1", [commentId]);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("DELETE /api/comments/[id] error:", error);

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import pool from "@/lib/db";
-import { RowDataPacket, ResultSetHeader } from "mysql2";
 import { sha256 } from "@/lib/hash";
 import { getClientIp } from "@/lib/seo";
 import { checkHoneypot, checkRateLimit, verifyCaptcha, logSpam } from "@/lib/spam";
@@ -15,10 +14,10 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "postId is required" }, { status: 400 });
     }
 
-    const [comments] = await pool.query<RowDataPacket[]>(
+    const { rows: comments } = await pool.query(
       `SELECT id, post_id, nickname, content, created_at
        FROM comments
-       WHERE post_id = ? AND is_approved = 1
+       WHERE post_id = $1 AND is_approved = true
        ORDER BY created_at ASC`,
       [postId]
     );
@@ -35,14 +34,11 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const ip = getClientIp(request);
 
-    // 1단계: 허니팟 검사
     if (checkHoneypot(body)) {
       await logSpam(ip, "honeypot", JSON.stringify({ postId: body.postId }));
-      // 봇에게 성공처럼 보이게 200 응답
       return NextResponse.json({ id: 0, success: true });
     }
 
-    // 2단계: Rate Limit 검사
     const { limited, requireCaptcha } = await checkRateLimit(ip, "comment");
     if (limited) {
       const captchaToken = body.captchaToken;
@@ -53,7 +49,6 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // 3단계: hCaptcha 검증
       const captchaOk = await verifyCaptcha(captchaToken);
       if (!captchaOk) {
         await logSpam(ip, "captcha_fail", JSON.stringify({ postId: body.postId }));
@@ -63,7 +58,7 @@ export async function POST(request: NextRequest) {
         );
       }
     }
-    void requireCaptcha; // unused but from destructure
+    void requireCaptcha;
 
     const { postId, nickname, password, content } = body;
 
@@ -82,9 +77,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "content too long" }, { status: 400 });
     }
 
-    // 글 존재 확인
-    const [[post]] = await pool.query<RowDataPacket[]>(
-      "SELECT id FROM posts WHERE id = ?",
+    const { rows: [post] } = await pool.query(
+      "SELECT id FROM posts WHERE id = $1",
       [postId]
     );
     if (!post) {
@@ -94,13 +88,14 @@ export async function POST(request: NextRequest) {
     const passwordHash = await bcrypt.hash(password, 10);
     const ipHash = sha256(ip);
 
-    const [result] = await pool.query<ResultSetHeader>(
+    const { rows: [result] } = await pool.query(
       `INSERT INTO comments (post_id, nickname, password, content, ip_hash, is_approved)
-       VALUES (?, ?, ?, ?, ?, 1)`,
+       VALUES ($1, $2, $3, $4, $5, true)
+       RETURNING id`,
       [postId, nickname, passwordHash, content, ipHash]
     );
 
-    return NextResponse.json({ id: result.insertId, success: true }, { status: 201 });
+    return NextResponse.json({ id: result.id, success: true }, { status: 201 });
   } catch (error) {
     console.error("POST /api/comments error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

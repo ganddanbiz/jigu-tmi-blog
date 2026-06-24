@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteName}`,
     default: siteName,
   },
-  description: `AI가 매일 글을 쓰는 ${siteName}`,,
+  description: `${siteName} — 매일 신기하고 재미있는 세계 뉴스`,
   openGraph: {
     type: "website",
     siteName,

@@ -1,24 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&display=swap");
 @import "tailwindcss";
 
 /* ── Design Tokens ──────────────────────────────── */
 :root {
-  --bg:           #faf8f4;
+  --bg:           #faf7ff;
   --bg-card:      #ffffff;
-  --ink:          #1c1c1a;
-  --ink-mid:      #4a4a46;
-  --ink-muted:    #7a7a74;
-  --ink-faint:    #b0ac9e;
-  --border:       #e5e0d4;
-  --border-light: #f0ece2;
+  --ink:          #1e1a2e;
+  --ink-mid:      #4a4060;
+  --ink-muted:    #7a6e96;
+  --ink-faint:    #b8aed0;
+  --border:       #e0d8f0;
+  --border-light: #ece6f8;
 
-  --accent:       #e8342a;
-  --accent-hover: #c42820;
-  --accent-faint: #fff0ef;
+  --accent:       #7c3aed;
+  --accent-hover: #5b21b6;
+  --accent-faint: #f3eeff;
 
-  --header-bg:    #161614;
-  --header-text:  #f5f3ee;
-  --header-muted: #8a8880;
+  --header-bg:    #120d24;
+  --header-text:  #f0ebff;
+  --header-muted: #7a6a9e;
 
   /* Category */
   --cat-before-c:  #0369a1; --cat-before-bg:  #e0f2fe;
@@ -37,7 +37,7 @@
 /* ── Theme fonts ────────────────────────────────── */
 @theme inline {
   --font-sans:  var(--font-noto-sans-kr), "Apple SD Gothic Neo", system-ui, sans-serif;
-  --font-serif: "Nanum Myeongjo", "Batang", Georgia, serif;
+  --font-serif: "Playfair Display", Georgia, serif;
 }
 
 /* ── Base ───────────────────────────────────────── */
