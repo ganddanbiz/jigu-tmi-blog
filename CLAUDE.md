@@ -4,34 +4,42 @@
 | 항목 | 내용 |
 |------|------|
 | 블로그명 | 지구촌 TMI |
-| 도메인 | **미설정** (localhost:3000) → 설정 필요 |
+| URL | https://jigu-tmi.vercel.app |
 | 언어 | 한국어 |
 | 주제 | 세계 잡학 TMI (신기한 사실, 기록, 동물, 음식, 문화 등) |
 | 캐릭터 | 잡학왕 TMI |
 | 타겟 독자 | 20~40대, 출퇴근 중 스마트폰으로 읽는 독자 |
 | AI 모델 | Claude Haiku (claude-haiku-4-5-20251001) |
 | 이미지 | Unsplash (최대 3장) + Pexels (부족분 보완) |
-| DB | Neon PostgreSQL — **DATABASE_URL 미설정 (운영 준비 필요)** |
+| DB | Neon PostgreSQL (ap-southeast-1) |
 
-## 현재 상태 ⚠️
-- **DATABASE_URL 비어있음** → `.env.local`에 Neon DB URL 설정 후 운영 가능
-- 발행 이력 없음 (0편)
-- 도메인 미설정
+## 현재 상태 ✅ 운영 중
+- 발행: 2편 (basic-001, basic-002)
+- 자동 발행: GitHub Actions 평일 KST 09:00
+- Vercel 프로젝트: tugman77-8039s-projects/jigu-tmi
+- GitHub 저장소: ganddanbiz/jigu-tmi-blog
 
-## 운영 시작 전 필수 작업
-1. Neon DB 생성 후 `DATABASE_URL` 설정
-2. DB 테이블 생성 (`sql/init.pg.sql` 실행)
-3. 도메인 설정 및 `NEXT_PUBLIC_SITE_URL` 업데이트
-4. Vercel 배포
+## 배포 방식
+- **Vercel**: `vercel build --prod` → `vercel deploy --prebuilt --prod` (로컬 빌드 후 배포)
+- **GitHub Actions**: 글 자동 생성만 담당 (daily-post.yml)
+- ⚠️ `vercel --prod` 직접 실행 시 BLOCKED 발생 — 반드시 prebuilt 방식 사용
+
+## 코드베이스 출처
+- **110 재테크스토리 코드를 그대로 복사해서 수정**한 프로젝트
+- 코드 구조, DB 스키마, 카테고리명(`before/bidding/after/tax/law/ai`), 워크플로우 등 동일
+- 재테크스토리 코드 참조 시: `010 Blog_Manger/110 Blog_Jaetechstory/`
+- 차이점: AI 모델(Gemini→Claude Haiku), 주제(재테크→세계 TMI), 이미지(Unsplash→Unsplash+Pexels)
 
 ## 프로젝트 구조
 ```
 140 Blog_World News/
 ├── scripts/
-│   ├── generate-post.ts  ← AI 글 자동 생성
+│   ├── generate-post.ts  ← AI 글 자동 생성 (ws 패키지로 Neon WebSocket 설정)
 │   ├── topics.ts         ← 주제 목록 (130개)
-│   └── (generate.log 없음 — 미운영)
-├── .env.local            ← 환경변수 (DB 미설정)
+│   └── generate.log      ← 발행 로그
+├── .github/workflows/
+│   └── daily-post.yml    ← 평일 KST 09:00 자동 발행
+├── .env.local            ← 환경변수
 └── src/
 ```
 
@@ -39,6 +47,16 @@
 ```bash
 cd "140 Blog_World News"
 npm run generate
+```
+
+## 재배포 명령 (사이트 이름 변경 등)
+```bash
+cd "140 Blog_World News"
+# .vercel/.env.production.local을 .env.local로 덮어쓴 후
+cp .env.local .vercel/.env.production.local
+echo "VERCEL=1" >> .vercel/.env.production.local
+vercel build --prod
+vercel deploy --prebuilt --prod
 ```
 
 ## 글 작성 규칙
@@ -89,8 +107,19 @@ npm run generate
 
 ## 환경변수 (.env.local)
 - `ANTHROPIC_API_KEY` — Claude API
-- `DATABASE_URL` — **미설정 (필수 설정 필요)**
+- `DATABASE_URL` — Neon PostgreSQL
 - `UNSPLASH_ACCESS_KEY` — Unsplash 이미지
 - `PEXELS_API_KEY` — Pexels 이미지
-- `NEXT_PUBLIC_SITE_URL` — 도메인 (현재 localhost:3000)
+- `NEXT_PUBLIC_SITE_URL=https://jigu-tmi.vercel.app`
 - `NEXT_PUBLIC_SITE_NAME=지구촌 TMI`
+
+## GitHub Actions 시크릿 (ganddanbiz/jigu-tmi-blog)
+- `ANTHROPIC_API_KEY` ✅
+- `DATABASE_URL` ✅
+- `UNSPLASH_ACCESS_KEY` ✅
+- `PEXELS_API_KEY` ✅
+- `NEXT_PUBLIC_SITE_URL` ✅
+
+## 발행 현황
+- 총 2편 발행 (2026-06-25 기준, basic-002까지)
+- 다음 주제: basic-003 (3/130)
