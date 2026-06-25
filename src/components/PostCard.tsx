@@ -9,12 +9,12 @@ interface PostCardProps {
 }
 
 const catLabels: Record<string, string> = {
-  before: "입찰준비",
-  bidding: "입찰·낙찰",
-  after:   "명도·출구",
-  tax:     "세금·대출",
-  law:     "권리분석",
-  ai:      "AI활용",
+  before:  "세계 이슈",
+  bidding: "동물·자연",
+  after:   "사람·사회",
+  tax:     "음식·문화",
+  law:     "기록·도전",
+  ai:      "기술·발명",
 };
 
 const catBadgeClass: Record<string, string> = {
