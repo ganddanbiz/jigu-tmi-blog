@@ -1,24 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap");
 @import "tailwindcss";
 
-/* ── Design Tokens ──────────────────────────────── */
+/* ── Design Tokens (지구촌 TMI — Deep Teal & Coral) */
 :root {
-  --bg:           #faf8f4;
+  --bg:           #f0f9fc;
   --bg-card:      #ffffff;
-  --ink:          #1c1c1a;
-  --ink-mid:      #4a4a46;
-  --ink-muted:    #7a7a74;
-  --ink-faint:    #b0ac9e;
-  --border:       #e5e0d4;
-  --border-light: #f0ece2;
+  --ink:          #092938;
+  --ink-mid:      #1e4f63;
+  --ink-muted:    #4a7f96;
+  --ink-faint:    #8ab8cc;
+  --border:       #c8e4ee;
+  --border-light: #e0f2f8;
 
-  --accent:       #e8342a;
-  --accent-hover: #c42820;
-  --accent-faint: #fff0ef;
+  --accent:       #0891b2;
+  --accent-hover: #0672a0;
+  --accent-faint: #e0f5fb;
 
-  --header-bg:    #161614;
-  --header-text:  #f5f3ee;
-  --header-muted: #8a8880;
+  --header-bg:    #0a3d52;
+  --header-text:  #e8f6fa;
+  --header-muted: #6ab4cc;
 
   /* Category */
   --cat-before-c:  #0369a1; --cat-before-bg:  #e0f2fe;
@@ -37,7 +37,7 @@
 /* ── Theme fonts ────────────────────────────────── */
 @theme inline {
   --font-sans:  var(--font-noto-sans-kr), "Apple SD Gothic Neo", system-ui, sans-serif;
-  --font-serif: "Nanum Myeongjo", "Batang", Georgia, serif;
+  --font-serif: "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
 }
 
 /* ── Base ───────────────────────────────────────── */
@@ -467,4 +467,34 @@ body {
 
 @media (min-width: 768px) {
   .feed-ad-slot { padding: 1.25rem 3rem; }
+}
+
+/* ── Mobile readability ─────────────────────────── */
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+
+  .prose {
+    font-size: 1.0625rem;
+    line-height: 2.0;
+  }
+  .prose h2 {
+    font-size: 1.1875rem;
+    margin-top: 1.75em;
+  }
+  .prose h3 { font-size: 1.0625rem; }
+  .prose p  { margin-bottom: 1.25em; }
+
+  .prose table {
+    font-size: 0.8125rem;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .feed-article { padding: 1.125rem 1rem; }
+  .feed-ad-slot { padding: 0.875rem 1rem; }
+
+  .post-card-body { padding: 0.875rem 1rem 1rem; }
+
+  .page-btn { min-width: 2.5rem; height: 2.5rem; font-size: 0.9375rem; }
 }

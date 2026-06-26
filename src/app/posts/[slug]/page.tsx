@@ -1,39 +1,43 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import pool from "@/lib/db";
-import { RowDataPacket } from "mysql2";
 import { Post } from "@/types";
 import JsonLd from "@/components/JsonLd";
 import CommentSection from "@/components/CommentSection";
 import LikeButton from "@/components/LikeButton";
 import ShareButton from "@/components/ShareButton";
 import Link from "next/link";
+import CoupangAd from "@/components/CoupangAd";
 
 export const revalidate = 3600;
 
 type Props = { params: Promise<{ slug: string }> };
 
 async function getPost(slug: string): Promise<Post | null> {
-  const [rows] = await pool.query<RowDataPacket[]>(
-    "SELECT * FROM posts WHERE slug = ? AND status = 'published'",
+  const { rows } = await pool.query(
+    "SELECT * FROM posts WHERE slug = $1 AND status = 'published'",
     [slug]
   );
   return (rows[0] as Post) || null;
 }
 
 async function getLikeCount(postId: number): Promise<number> {
-  const [[row]] = await pool.query<RowDataPacket[]>(
-    "SELECT COUNT(*) as count FROM likes WHERE post_id = ?",
+  const { rows: [row] } = await pool.query(
+    "SELECT COUNT(*) as count FROM likes WHERE post_id = $1",
     [postId]
   );
-  return row?.count || 0;
+  return Number(row?.count) || 0;
 }
 
 export async function generateStaticParams() {
-  const [rows] = await pool.query<RowDataPacket[]>(
-    "SELECT slug FROM posts WHERE status = 'published'"
-  );
-  return rows.map((row) => ({ slug: row.slug }));
+  try {
+    const { rows } = await pool.query(
+      "SELECT slug FROM posts WHERE status = 'published'"
+    );
+    return rows.map((row: { slug: string }) => ({ slug: row.slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -64,15 +68,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const catLabels: Record<string, string> = {
-  before:  "입찰준비",
-  bidding: "입찰·낙찰",
-  after:   "명도·출구",
-  tax:     "세금·대출",
-  law:     "권리분석",
-  ai:      "AI활용",
+  before:  "세계 이슈",
+  bidding: "동물·자연",
+  after:   "사람·사회",
+  tax:     "음식·문화",
+  law:     "기록·도전",
+  ai:      "기술·발명",
 };
 const catBadgeClass: Record<string, string> = {
-  before: "badge badge-before",
+  before:  "badge badge-before",
   bidding: "badge badge-bidding",
   after:   "badge badge-after",
   tax:     "badge badge-tax",
@@ -85,7 +89,7 @@ export default async function PostPage({ params }: Props) {
   const post = await getPost(slug);
   if (!post) notFound();
 
-  await pool.query("UPDATE posts SET view_count = view_count + 1 WHERE id = ?", [post.id]);
+  await pool.query("UPDATE posts SET view_count = view_count + 1 WHERE id = $1", [post.id]);
   const likeCount = await getLikeCount(post.id);
 
   const publishedDate = post.published_at
@@ -110,7 +114,7 @@ export default async function PostPage({ params }: Props) {
         {/* ── 상단 내비 ─────────────────────────── */}
         <header style={{
           background: "var(--header-bg)",
-          borderBottom: "1px solid #2a2a28",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
         }}>
           <div style={{
             maxWidth: "52rem", margin: "0 auto",
@@ -125,7 +129,7 @@ export default async function PostPage({ params }: Props) {
               textDecoration: "none",
               letterSpacing: "-0.01em",
             }}>
-              내 블로그
+              지구촌 TMI
             </Link>
             <Link href="/" style={{
               fontSize: "0.75rem",
@@ -192,7 +196,7 @@ export default async function PostPage({ params }: Props) {
             }}>
               <div style={{ width: "2.5rem", height: "3px", background: "var(--accent)", borderRadius: "2px" }} />
               <span style={{ fontSize: "0.75rem", color: "var(--ink-faint)", fontWeight: 600, letterSpacing: "0.05em" }}>
-                {process.env.NEXT_PUBLIC_SITE_NAME || "운영자"}
+                잡학왕 TMI
               </span>
             </div>
 
@@ -210,6 +214,9 @@ export default async function PostPage({ params }: Props) {
                 />
               </div>
             )}
+
+            {/* 쿠팡 다이내믹 광고 */}
+            <CoupangAd />
 
             {/* 본문 */}
             <div
