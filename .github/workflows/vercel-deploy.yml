@@ -14,7 +14,7 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
-      - name: Deploy
+      - name: Deploy to Vercel
         run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --yes
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
