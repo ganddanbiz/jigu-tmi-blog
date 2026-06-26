@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import pool from "@/lib/db";
-import { RowDataPacket } from "mysql2";
 import PostList from "@/components/PostList";
 import PostCard from "@/components/PostCard";
 import ViewToggle from "@/components/ViewToggle";
@@ -10,12 +9,12 @@ const LIMIT = 10;
 
 const categories: { key: string | null; label: string }[] = [
   { key: null,       label: "전체" },
-  { key: "before",   label: "준비" },
-  { key: "bidding",  label: "실전" },
-  { key: "after",    label: "관리" },
-  { key: "tax",      label: "비용·세금" },
-  { key: "law",      label: "규정·법률" },
-  { key: "ai",       label: "AI활용" },
+  { key: "before",   label: "세계 이슈" },
+  { key: "bidding",  label: "동물·자연" },
+  { key: "after",    label: "사람·사회" },
+  { key: "tax",      label: "음식·문화" },
+  { key: "law",      label: "기록·도전" },
+  { key: "ai",       label: "기술·발명" },
 ];
 
 type SearchParams = Promise<{
@@ -31,20 +30,22 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
   const currentPage = Math.max(1, Number(page) || 1);
   const offset = (currentPage - 1) * LIMIT;
 
-  const whereCategory = category ? " AND category = ?" : "";
-  const queryParams: (string | number)[] = category ? [category, LIMIT, offset] : [LIMIT, offset];
-  const countParams: string[] = category ? [category] : [];
+  const whereCategory = category ? " AND category = $1" : "";
+  const countParams = category ? [category] : [];
+  const dataParams = category ? [category, LIMIT, offset] : [LIMIT, offset];
+  const dataPlaceholders = category
+    ? "AND category = $1 ORDER BY published_at DESC LIMIT $2 OFFSET $3"
+    : "ORDER BY published_at DESC LIMIT $1 OFFSET $2";
 
-  const [[{ total }]] = await pool.query<RowDataPacket[]>(
+  const { rows: [{ total }] } = await pool.query(
     `SELECT COUNT(*) as total FROM posts WHERE status = 'published'${whereCategory}`,
     countParams
   );
 
-  const [posts] = await pool.query<RowDataPacket[]>(
+  const { rows: posts } = await pool.query(
     `SELECT id, title, slug, category, thumbnail_url, meta_description, content, published_at, view_count
-     FROM posts WHERE status = 'published'${whereCategory}
-     ORDER BY published_at DESC LIMIT ? OFFSET ?`,
-    queryParams
+     FROM posts WHERE status = 'published' ${dataPlaceholders}`,
+    dataParams
   );
 
   const totalPages = Math.ceil(total / LIMIT);
@@ -65,7 +66,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
                 color: "var(--accent)",
                 marginBottom: "0.5rem",
               }}>
-                전문 블로그
+                세계 이모저모
               </div>
               <h1 style={{
                 fontFamily: "var(--font-serif)",
@@ -75,7 +76,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
                 lineHeight: 1.2,
                 letterSpacing: "-0.01em",
               }}>
-                {process.env.NEXT_PUBLIC_SITE_NAME || "내 블로그"}
+                {process.env.NEXT_PUBLIC_SITE_NAME || "지구촌 TMI"}
               </h1>
               <p style={{
                 fontSize: "0.8125rem",
@@ -83,7 +84,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
                 marginTop: "0.5rem",
                 letterSpacing: "0.02em",
               }}>
-                AI로 더 쉽게, 더 스마트하게
+                매일 신기하고 재미있는 세계 뉴스를 전해드려요 🌍
               </p>
             </div>
             <div style={{
@@ -143,7 +144,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
           <span style={{ fontSize: "0.8125rem", color: "var(--ink-muted)" }}>
             총{" "}
             <strong style={{ color: "var(--ink)", fontWeight: 700 }}>{total}</strong>
-            개의 글
+            개의 TMI
           </span>
           <Suspense>
             <ViewToggle currentView={currentView} />
