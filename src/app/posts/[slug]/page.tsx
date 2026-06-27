@@ -8,7 +8,6 @@ import LikeButton from "@/components/LikeButton";
 import ShareButton from "@/components/ShareButton";
 import Link from "next/link";
 import CoupangAd from "@/components/CoupangAd";
-import CoupangBanner from "@/components/CoupangBanner";
 
 export const revalidate = 3600;
 
@@ -238,7 +237,7 @@ export default async function PostPage({ params }: Props) {
           </article>
 
           {/* ── 쿠팡 광고 ──────────────────────── */}
-          <CoupangBanner />
+          <CoupangAd />
 
           {/* ── 댓글 ────────────────────────────── */}
           <CommentSection postId={post.id} />
