@@ -236,8 +236,11 @@ export default async function PostPage({ params }: Props) {
             </div>
           </article>
 
-          {/* ── 쿠팡 광고 ──────────────────────── */}
-          <CoupangAd />
+          {/* ── 쿠팡 리더보드 광고 ─────────────── */}
+          <CoupangAd variant="leaderboard" />
+
+          {/* ── 쿠팡 스퀘어 광고 ───────────────── */}
+          <CoupangAd variant="square" />
 
           {/* ── 댓글 ────────────────────────────── */}
           <CommentSection postId={post.id} />

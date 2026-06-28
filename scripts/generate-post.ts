@@ -23,7 +23,7 @@ if (!apiKey) {
   console.error("❌ ANTHROPIC_API_KEY가 .env.local에 설정되어 있지 않습니다.");
   process.exit(1);
 }
-const anthropic = new Anthropic({ apiKey });
+const anthropic = new Anthropic({ apiKey, maxRetries: 3, timeout: 90_000 });
 
 // ── 카테고리 → 이미지 검색어 맵 ──────────────────
 const CATEGORY_QUERY: Record<string, string> = {
@@ -228,6 +228,8 @@ function buildPrompt(topic: Topic): string {
 - 순수 HTML만 출력 (마크다운 기호 절대 사용 금지)
 - 사용 가능한 태그: <h2> <h3> <p> <ul> <ol> <li> <table> <thead> <tbody> <tr> <th> <td> <strong> <blockquote>
 - <h1> 태그 사용 금지
+- <strong>은 핵심 용어·수치에만 최소 사용 (문장 전체를 감싸거나 연속 사용 금지)
+- 인라인 style 속성 절대 사용 금지
 
 [TMI 한 줄 요약 형식]
 <h2>💡 TMI 한 줄 요약</h2>
@@ -268,6 +270,20 @@ async function savePost(topic: Topic, content: string, thumbnailUrl: string | nu
   return result.id;
 }
 
+// ── API 재시도 래퍼 ───────────────────────────────
+async function callWithRetry<T>(fn: () => Promise<T>, retries = 3, delayMs = 8000): Promise<T> {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (attempt === retries) throw err;
+      writeLog(`⚠️  API 호출 실패 (${attempt}/${retries}), ${delayMs / 1000}초 후 재시도...`);
+      await new Promise(resolve => setTimeout(resolve, delayMs));
+    }
+  }
+  throw new Error("unreachable");
+}
+
 // ── 로그 기록 ─────────────────────────────────────
 function writeLog(message: string): void {
   const logPath = path.resolve(process.cwd(), "scripts/generate.log");
@@ -290,11 +306,11 @@ async function main() {
 
     writeLog("🤖 Claude로 글 생성 중...");
     const prompt = buildPrompt(topic);
-    const msg = await anthropic.messages.create({
+    const msg = await callWithRetry(() => anthropic.messages.create({
       model: "claude-haiku-4-5-20251001",
       max_tokens: 4000,
       messages: [{ role: "user", content: prompt }],
-    });
+    }));
     const rawContent = (msg.content[0] as { text: string }).text;
     const content = cleanHtml(rawContent);
     writeLog(`✍️  생성 완료 (${content.length}자)`);
