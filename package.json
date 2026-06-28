@@ -10,7 +10,7 @@
     "generate": "tsx scripts/generate-post.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.30.0",
+    "@anthropic-ai/sdk": "^0.106.0",
     "@neondatabase/serverless": "^0.9.0",
     "@types/ws": "^8.18.1",
     "bcryptjs": "^3.0.3",
