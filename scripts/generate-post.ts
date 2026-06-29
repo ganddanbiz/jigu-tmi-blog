@@ -5,8 +5,11 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
-import { Pool } from "@neondatabase/serverless";
+import { Pool, neonConfig } from "@neondatabase/serverless";
+import ws from "ws";
 import { allTopics, Topic } from "./topics";
+
+neonConfig.webSocketConstructor = ws;
 import * as dotenv from "dotenv";
 import * as path from "path";
 import * as fs from "fs";
