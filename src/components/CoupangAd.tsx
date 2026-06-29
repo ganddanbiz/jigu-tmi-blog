@@ -26,7 +26,7 @@ export default function CoupangAd({ variant = "banner" }: Props) {
           target="_blank"
           rel="noopener noreferrer"
           referrerPolicy="unsafe-url"
-          style={{ display: "block" }}
+          style={{ display: "block", maxWidth: "728px", margin: "0 auto" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
