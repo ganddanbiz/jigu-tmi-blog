@@ -36,13 +36,6 @@ const catAccent: Record<string, string> = {
   ai:      "var(--cat-ai-c)",
 };
 
-function getLevelBadge(slug?: string): { cls: string; label: string } | null {
-  if (!slug) return null;
-  if (slug.startsWith("basic-")) return { cls: "badge badge-basic", label: "기초" };
-  if (slug.startsWith("mid-"))   return { cls: "badge badge-mid",   label: "중급" };
-  if (slug.startsWith("adv-"))   return { cls: "badge badge-adv",   label: "고급" };
-  return null;
-}
 
 const CHUNK_SIZE = 6;
 
@@ -78,7 +71,6 @@ export default function PostCard({ posts }: PostCardProps) {
           <div style={gridStyle}>
             {chunk.map((post) => {
               const cat = post.category || "before";
-              const level = getLevelBadge(post.slug);
               const accent = catAccent[cat] || "var(--accent)";
               const publishedDate = post.published_at
                 ? new Date(post.published_at).toLocaleDateString("ko-KR")
@@ -110,7 +102,6 @@ export default function PostCard({ posts }: PostCardProps) {
                   <div className="post-card-body">
                     <div style={{ display: "flex", gap: "0.35rem", marginBottom: "0.6rem", flexWrap: "wrap" }}>
                       <span className={catBadgeClass[cat] || "badge"}>{catLabels[cat] || cat}</span>
-                      {level && <span className={level.cls}>{level.label}</span>}
                     </div>
 
                     <h2 className="post-card-title">{post.title}</h2>

@@ -26,13 +26,6 @@ const catLabels: Record<string, string> = {
   ai:      "기술·발명",
 };
 
-function getLevelBadge(slug?: string): { cls: string; label: string } | null {
-  if (!slug) return null;
-  if (slug.startsWith("basic-")) return { cls: "badge badge-basic", label: "기초" };
-  if (slug.startsWith("mid-"))   return { cls: "badge badge-mid",   label: "중급" };
-  if (slug.startsWith("adv-"))   return { cls: "badge badge-adv",   label: "고급" };
-  return null;
-}
 
 export default function PostList({ posts }: PostListProps) {
   if (posts.length === 0) {
@@ -49,7 +42,6 @@ export default function PostList({ posts }: PostListProps) {
     <div>
       {posts.map((post, index) => {
         const cat = post.category || "before";
-        const level = getLevelBadge(post.slug);
         const publishedDate = post.published_at
           ? new Date(post.published_at).toLocaleDateString("ko-KR", {
               year: "numeric", month: "long", day: "numeric",
@@ -68,7 +60,6 @@ export default function PostList({ posts }: PostListProps) {
               <span className={catBadgeClass[cat] || "badge"}>
                 {catLabels[cat] || cat}
               </span>
-              {level && <span className={level.cls}>{level.label}</span>}
               {publishedDate && (
                 <span style={{ fontSize: "0.75rem", color: "var(--ink-faint)", marginLeft: "0.25rem" }}>
                   {publishedDate}
