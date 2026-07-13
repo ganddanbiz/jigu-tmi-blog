@@ -2,7 +2,7 @@ name: Daily Blog Post Generation
 
 on:
   schedule:
-    - cron: '0 0 * * 1-5'   # UTC 00:00 = KST 09:00, 평일
+    - cron: '0 0 * * 2,5'   # UTC 00:00 = KST 09:00, 화·금 주2회 (2026-07-14 토큰 절약 감축)
   workflow_dispatch:          # 수동 실행 가능
 
 jobs:
