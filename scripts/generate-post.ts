@@ -340,6 +340,13 @@ async function main() {
     if (thumbnail) writeLog(`🖼️  썸네일: ${thumbnail.url}`);
     writeLog(`🖼️  인라인 이미지: ${inlineImages.length}장`);
 
+    // 이미지 없이 발행 방지: 썸네일과 본문 이미지가 모두 있어야 발행한다.
+    // 이미지 수집 실패(레이트리밋/키 문제) 시 slug를 소비하지 않고 중단 → 다음 실행 때 재시도.
+    if (!thumbnail || !/<img\s/i.test(contentWithImages)) {
+      writeLog("❌ 이미지 없이 발행 방지 — 썸네일 또는 본문 이미지가 없어 발행을 중단합니다 (이미지 API 레이트리밋/키 점검 필요).");
+      process.exit(1);
+    }
+
     const postId = await savePost(topic, contentWithImages, thumbnail?.url ?? null);
     writeLog(`💾 DB 저장 완료 (id: ${postId}, slug: ${topic.slug})`);
     writeLog(`🌐 URL: ${process.env.NEXT_PUBLIC_SITE_URL}/posts/${topic.slug}`);
