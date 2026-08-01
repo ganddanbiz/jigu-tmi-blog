@@ -4,7 +4,7 @@
 | 항목 | 내용 |
 |------|------|
 | 블로그명 | 지구촌 TMI |
-| 도메인 | jigu-tmi.vercel.app |
+| 도메인 | jigu-tmi-blog.vercel.app (2026-08-01 정정 — jigu-tmi.vercel.app은 배포 멈춘 중복 프로젝트) |
 | 언어 | 한국어 |
 | 주제 | 세계의 신기하고 재미있는 뉴스·이야기 (지구촌 TMI) |
 | 타겟 독자 | 세계 뉴스에 관심 있는 한국 독자 |
@@ -104,7 +104,7 @@ vercel deploy --prebuilt --prod
 - `UNSPLASH_ACCESS_KEY` — Unsplash 이미지
 - `PEXELS_API_KEY` — Pexels 이미지 (폴백)
 - `DATABASE_URL` — Neon PostgreSQL
-- `NEXT_PUBLIC_SITE_URL=https://jigu-tmi.vercel.app`
+- `NEXT_PUBLIC_SITE_URL=https://jigu-tmi-blog.vercel.app`
 - `NEXT_PUBLIC_SITE_NAME=지구촌 TMI`
 - `NEXT_PUBLIC_HCAPTCHA_SITE_KEY` — 댓글 스팸 방지
 - `HCAPTCHA_SECRET_KEY` — 댓글 스팸 방지 서버
