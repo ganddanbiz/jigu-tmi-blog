@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export default function Footer() {
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "내 블로그";
+  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "지구촌 TMI";
   const year = new Date().getFullYear();
 
   return (

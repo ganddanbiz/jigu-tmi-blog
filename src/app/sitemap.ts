@@ -1,8 +1,9 @@
+import { SITE_URL } from "@/lib/seo";
 import type { MetadataRoute } from "next";
 import pool from "@/lib/db";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = SITE_URL;
 
   let rows: Array<{ slug: string; updated_at: string }> = [];
   try {

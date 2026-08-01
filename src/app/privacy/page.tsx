@@ -3,11 +3,11 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "개인정보처리방침",
-  description: "내 블로그 개인정보처리방침",
+  description: "지구촌 TMI 개인정보처리방침",
 };
 
 export default function PrivacyPage() {
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "내 블로그";
+  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "지구촌 TMI";
   const today = new Date().toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric" });
 
   return (

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import pool from "@/lib/db";
@@ -43,7 +44,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = SITE_URL;
   if (!post) return { title: "글을 찾을 수 없습니다" };
   return {
     title: post.title,

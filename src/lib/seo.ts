@@ -29,3 +29,22 @@ export function verifyAdminKey(request: Request): boolean {
   const token = authHeader.slice(7);
   return token === process.env.ADMIN_API_KEY;
 }
+
+/**
+ * 사이트 정본 URL.
+ *
+ * NEXT_PUBLIC_SITE_URL이 없으면 Vercel이 자동 주입하는 VERCEL_PROJECT_PRODUCTION_URL을 쓴다.
+ * (커스텀 도메인을 붙이면 그 도메인으로 자동 갱신된다.)
+ *
+ * ⚠️ 이 폴백이 없던 시절, Vercel에 NEXT_PUBLIC_SITE_URL이 미설정이라
+ *    sitemap.xml·robots.txt가 통째로 http://localhost:3000을 가리켰다(2026-08-01 발견).
+ *    크롤러가 접근할 수 없어 색인이 원천 차단된 상태였다. localhost는 로컬 개발에서만 나와야 한다.
+ */
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
+/** 사이트 표시명. 환경변수 미설정 시에도 템플릿 기본값("내 블로그")이 새지 않도록 실명을 기본값으로 둔다. */
+export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || "지구촌 TMI";

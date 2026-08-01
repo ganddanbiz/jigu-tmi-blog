@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "내 블로그";
+  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "지구촌 TMI";
 
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh" }}>

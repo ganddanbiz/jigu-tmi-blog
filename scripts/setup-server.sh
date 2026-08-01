@@ -28,7 +28,7 @@ NODE_VERSION="20"
 
 echo ""
 echo "============================================"
-echo "  내 블로그 서버 세팅 시작"
+echo "  지구촌 TMI 서버 세팅 시작"
 echo "  도메인: $DOMAIN"
 echo "  경로:   $APP_DIR"
 echo "============================================"
@@ -143,7 +143,7 @@ DATABASE_NAME=${DB_NAME}
 
 # ── 사이트 ──
 NEXT_PUBLIC_SITE_URL=https://${DOMAIN}
-NEXT_PUBLIC_SITE_NAME=내 블로그
+NEXT_PUBLIC_SITE_NAME=지구촌 TMI
 
 # ── hCaptcha (발급 후 교체) ──
 NEXT_PUBLIC_HCAPTCHA_SITE_KEY=CHANGE_ME

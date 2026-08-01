@@ -1,3 +1,4 @@
+import { SITE_URL, SITE_NAME } from "@/lib/seo";
 import { Post } from "@/types";
 
 interface JsonLdProps {
@@ -5,8 +6,8 @@ interface JsonLdProps {
 }
 
 export default function JsonLd({ post }: JsonLdProps) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "내 블로그";
+  const siteUrl = SITE_URL;
+  const siteName = SITE_NAME;
 
   const schema = {
     "@context": "https://schema.org",
@@ -17,7 +18,7 @@ export default function JsonLd({ post }: JsonLdProps) {
     dateModified: post.updated_at,
     author: {
       "@type": "Person",
-      name: process.env.NEXT_PUBLIC_SITE_NAME || "블로그 운영자",
+      name: SITE_NAME,
       url: siteUrl,
     },
     publisher: {
