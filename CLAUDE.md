@@ -100,7 +100,8 @@ vercel deploy --prebuilt --prod
 - 스케줄: 평일 KST 09:00 자동 발행
 
 ## 환경변수 (.env.local)
-- `ANTHROPIC_API_KEY` — Claude API
+- `CLAUDE_CODE_OAUTH_TOKEN` — 구독 인증 (우선). `claude setup-token`으로 발급
+- `BLOG_ANTHROPIC_API_KEY` — API 키 폴백. **`ANTHROPIC_API_KEY`라는 이름은 쓰지 않는다** — SDK가 자동으로 집어 구독 인증을 덮어쓴다
 - `UNSPLASH_ACCESS_KEY` — Unsplash 이미지
 - `PEXELS_API_KEY` — Pexels 이미지 (폴백)
 - `DATABASE_URL` — Neon PostgreSQL
@@ -114,7 +115,8 @@ vercel deploy --prebuilt --prod
 
 ## GitHub Actions 시크릿 (ganddanbiz/jigu-tmi-blog)
 - `DATABASE_URL`
-- `ANTHROPIC_API_KEY`
+- `CLAUDE_CODE_OAUTH_TOKEN`
+- `BLOG_ANTHROPIC_API_KEY` (폴백, 없어도 동작)
 - `UNSPLASH_ACCESS_KEY`
 - `NEXT_PUBLIC_SITE_URL`
 

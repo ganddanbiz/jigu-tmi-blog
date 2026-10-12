@@ -21,12 +21,20 @@ dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
 const pool = new Pool({ connectionString: process.env.DATABASE_URL! });
 
 // ── Claude 클라이언트 ─────────────────────────────
-const apiKey = process.env.ANTHROPIC_API_KEY;
-if (!apiKey) {
-  console.error("❌ ANTHROPIC_API_KEY가 .env.local에 설정되어 있지 않습니다.");
+// ANTHROPIC_API_KEY는 Claude Code CLI가 자동으로 읽어 구독 인증을 덮어쓰므로 사용하지 않음.
+// 우선순위: CLAUDE_CODE_OAUTH_TOKEN(구독) → BLOG_ANTHROPIC_API_KEY(스크립트 전용 API 키)
+const oauthToken = process.env.CLAUDE_CODE_OAUTH_TOKEN;
+const apiKey = process.env.BLOG_ANTHROPIC_API_KEY;
+if (!oauthToken && !apiKey) {
+  console.error(
+    "❌ CLAUDE_CODE_OAUTH_TOKEN 또는 BLOG_ANTHROPIC_API_KEY가 .env.local에 필요합니다.\n" +
+      "   구독 사용: `claude setup-token` 실행 후 CLAUDE_CODE_OAUTH_TOKEN에 토큰 입력"
+  );
   process.exit(1);
 }
-const anthropic = new Anthropic({ apiKey, maxRetries: 3, timeout: 90_000 });
+const anthropic = oauthToken
+  ? new Anthropic({ authToken: oauthToken, maxRetries: 3, timeout: 90_000 })
+  : new Anthropic({ apiKey: apiKey!, maxRetries: 3, timeout: 90_000 });
 
 // ── 카테고리 → 이미지 검색어 맵 ──────────────────
 const CATEGORY_QUERY: Record<string, string> = {
