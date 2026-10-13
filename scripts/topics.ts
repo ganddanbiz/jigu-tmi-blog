@@ -45,7 +45,7 @@ export const allTopics: Topic[] = [
     index: 4, slug: "basic-004", level: "기초편", category: "tax",
     title: "코끼리 똥으로 만든 커피가 세상에서 가장 비싸다고?",
     keywords: "블랙아이보리커피,코끼리커피,세계비싼커피,태국커피,희귀커피",
-    meta_description: "코끼리 위장을 통과해 만들어지는 세계에서 가장 비싼 커피의 충격적인 제조 과정.",
+    meta_description: "코끼리 위장을 통과해 만들어지는 세계에서 가장 비싼 커피의 독특한 제조 과정.",
   },
   {
     index: 5, slug: "basic-005", level: "기초편", category: "law",
@@ -177,7 +177,7 @@ export const allTopics: Topic[] = [
     index: 26, slug: "basic-026", level: "기초편", category: "bidding",
     title: "침팬지가 인간보다 기억력이 뛰어나다는 연구 결과",
     keywords: "침팬지기억력,동물지능,침팬지아이,숫자기억,일본연구",
-    meta_description: "일본 교토대학 연구에서 밝혀진 충격적인 사실, 침팬지 아이가 대학생보다 숫자를 더 잘 외운다.",
+    meta_description: "일본 교토대학 연구에서 진행된 실험, 숫자 순간기억 과제에서 침팬지 아이가 대학생보다 숫자를 더 잘 외운다.",
   },
   {
     index: 27, slug: "basic-027", level: "기초편", category: "after",
@@ -365,7 +365,7 @@ export const allTopics: Topic[] = [
     index: 57, slug: "mid-014", level: "중급편", category: "bidding",
     title: "까마귀가 인간 얼굴을 기억하고 원한을 품는다고?",
     keywords: "까마귀지능,까마귀기억력,까마귀복수,조류지능,까마귀연구",
-    meta_description: "미국 시애틀 연구에서 밝혀진 충격적 사실, 까마귀는 5년 후에도 원수의 얼굴을 기억한다.",
+    meta_description: "미국 시애틀 연구에서 밝혀진 확인된 사실, 까마귀는 5년 후에도 원수의 얼굴을 기억한다.",
   },
   {
     index: 58, slug: "mid-015", level: "중급편", category: "after",
@@ -725,9 +725,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 117, slug: "adv-031", level: "고급편", category: "before",
-    title: "심해 최저점 마리아나 해구, 탐험에서 발견된 충격적인 것들",
+    title: "심해 최저점 마리아나 해구, 탐험에서 발견된 뜻밖의 것들",
     keywords: "마리아나해구,챌린저딥,심해탐험,해저생물,플라스틱오염",
-    meta_description: "수심 11km 지구 최저점에서 발견된 새로운 생명체들, 그리고 충격적인 플라스틱 쓰레기.",
+    meta_description: "수심 11km 지구 최저점에서 발견된 새로운 생명체들, 그리고 그곳까지 닿은 플라스틱 쓰레기.",
   },
   {
     index: 118, slug: "adv-032", level: "고급편", category: "bidding",
