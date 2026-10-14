@@ -20,6 +20,7 @@ const naverVerification = process.env.NEXT_PUBLIC_NAVER_VERIFICATION;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  alternates: { types: { "application/rss+xml": "/rss.xml" } },
   title: {
     template: `%s | ${siteName}`,
     default: siteName,
