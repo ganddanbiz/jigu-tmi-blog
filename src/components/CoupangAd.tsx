@@ -4,6 +4,8 @@ interface Props {
   variant?: "banner" | "square" | "leaderboard";
 }
 
+// 쿠팡 위젯 주소(widgets.html)를 iframe으로 직접 넣는다. 스크립트(g.js)를 동적으로 끼우면
+// document.currentScript를 못 찾아 광고가 푸터 아래 왼쪽에 붙는다 (2026-10-15 득템로그·KoreaSpots도 이 방식으로 통일).
 export default function CoupangAd({ variant = "banner" }: Props) {
   const notice = (
     <p style={{
@@ -67,7 +69,7 @@ export default function CoupangAd({ variant = "banner" }: Props) {
         frameBorder="0"
         scrolling="no"
         referrerPolicy="unsafe-url"
-        style={{ display: "block", width: "100%", maxWidth: "680px", height: "140px" }}
+        style={{ display: "block", width: "100%", maxWidth: "680px", height: "140px", margin: "0 auto" }}
       />
     </div>
   );
