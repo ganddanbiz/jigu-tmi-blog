@@ -94,6 +94,10 @@ vercel deploy --prebuilt --prod
 - 카테고리별 검색어 맵 (`CATEGORY_QUERY`)
 - 썸네일: allImages[0], 인라인: h2 섹션별 삽입
 
+## 쿠팡 광고
+- 캐러셀(`CoupangAd`)은 쿠팡 `widgets.html` iframe으로만 넣는다 (스크립트 g.js를 동적으로 넣으면 푸터 아래 왼쪽에 붙음). 가운데 정렬
+- 날개 배너(`.wing-banner`): 본문 틀(52rem) 오른쪽, 헤더 아래(`top: 7rem`), 1240px 이상에서만 보임 (2026-10-15)
+
 ## 발행 현황
 - 총 3편 발행 (basic-003까지, 2026-06-25 기준)
 - 다음 주제: basic-004
