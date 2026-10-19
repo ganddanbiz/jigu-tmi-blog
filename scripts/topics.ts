@@ -193,9 +193,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 29, slug: "basic-029", level: "기초편", category: "law",
-    title: "세계에서 가장 오래 달린 마라톤 선수의 기록",
-    keywords: "최고령마라톤,파우자싱,마라톤기록,100세마라톤,시크교도",
-    meta_description: "100세에도 마라톤을 완주한 파우자 싱, 세계에서 가장 오래 달린 마라톤 선수의 감동 이야기.",
+    title: "울트라마라톤 선수들은 며칠씩 달리며 잠을 어떻게 해결할까?",
+    keywords: "울트라마라톤,수면 전략,지구력,페이스 배분,레이스 운영",
+    meta_description: "며칠에 걸쳐 달리는 울트라마라톤에서 선수들이 잠과 체력을 관리하는 방법을 살펴봅니다.",
   },
   {
     index: 30, slug: "basic-030", level: "기초편", category: "ai",
@@ -217,9 +217,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 33, slug: "basic-033", level: "기초편", category: "after",
-    title: "세계에서 가장 어린 나이에 대학을 졸업한 아이들",
-    keywords: "천재어린이,최연소졸업,신동,세계천재,어린이천재",
-    meta_description: "8살에 대학 입학, 12살에 졸업... 믿기 어려운 세계 최연소 대학 졸업자들의 이야기.",
+    title: "또래보다 몇 년 일찍 대학에 간 아이들은 어떻게 적응할까?",
+    keywords: "조기입학,영재교육,대학 적응,사회성,월반",
+    meta_description: "나이를 건너뛰어 대학에 들어간 아이들이 마주하는 현실을 들여다봅니다.",
   },
   {
     index: 34, slug: "basic-034", level: "기초편", category: "tax",
@@ -229,9 +229,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 35, slug: "basic-035", level: "기초편", category: "law",
-    title: "기네스 기록에 도전하다 생긴 웃긴 에피소드 모음",
-    keywords: "기네스도전실패,기네스웃음,황당기록도전,기네스비하인드,세계기록",
-    meta_description: "기네스 기록 도전 과정에서 실제로 벌어진 황당하고 웃긴 사건들을 소개합니다.",
+    title: "기네스 기록은 누가, 어떤 절차로 인정해줄까?",
+    keywords: "기네스 세계기록,기록 인증,공식 심판,신청 절차,증빙",
+    meta_description: "기록 하나가 공식으로 인정받기까지 거쳐야 하는 심사 과정을 알아봅니다.",
   },
   {
     index: 36, slug: "basic-036", level: "기초편", category: "ai",
@@ -241,9 +241,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 37, slug: "basic-037", level: "기초편", category: "before",
-    title: "세계에서 가장 이상한 나라 법률 TOP 10",
-    keywords: "세계이상한법,황당한법,스위스법,싱가포르껌,특이한법률",
-    meta_description: "싱가포르 껌 소지 금지부터 스위스의 일요일 세탁 금지까지, 세계의 황당한 법률들.",
+    title: "이상해 보이는 외국 법에는 어떤 사연이 있을까?",
+    keywords: "독특한 법률,입법 배경,관습법,사문화된 법,법 개정",
+    meta_description: "낯설게 들리는 법 조항이 왜 생겼고 왜 아직 남아 있는지 배경을 따라가 봅니다.",
   },
   {
     index: 38, slug: "basic-038", level: "기초편", category: "bidding",
@@ -265,9 +265,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 41, slug: "basic-041", level: "기초편", category: "law",
-    title: "세계에서 가장 많이 번역된 책 TOP 5",
-    keywords: "세계최다번역,성경번역,피노키오,어린왕자,번역된책",
-    meta_description: "수천 개 언어로 번역된 세계의 책들, 1위는 예상대로일까 아닐까?",
+    title: "책이 다른 언어로 옮겨질 때 무엇이 달라질까?",
+    keywords: "번역,현지화,직역과 의역,문화 차이,번역가",
+    meta_description: "같은 책이 언어를 건널 때 번역가가 마주하는 선택들을 살펴봅니다.",
   },
   {
     index: 42, slug: "basic-042", level: "기초편", category: "ai",
@@ -277,17 +277,17 @@ export const allTopics: Topic[] = [
   },
   {
     index: 43, slug: "basic-043", level: "기초편", category: "before",
-    title: "세상에서 가장 비싼 주소에 사는 사람들의 이야기",
-    keywords: "세계비싼주소,모나코,홍콩비싼집,세계부동산,억만장자동네",
-    meta_description: "1㎡당 수억 원을 호가하는 세계 최고가 주소지에 실제로 사는 사람들의 생활.",
+    title: "같은 도시인데 동네마다 땅값이 왜 그렇게 벌어질까?",
+    keywords: "지가,입지,도시 개발,교통망,상권",
+    meta_description: "한 도시 안에서 땅값이 크게 갈리는 이유를 입지 관점에서 풀어봅니다.",
   },
 
   // ─── 중급편 (mid-001 ~ mid-043) ───────────────────────
   {
     index: 44, slug: "mid-001", level: "중급편", category: "before",
-    title: "도쿄 지하철이 세계에서 가장 복잡하다는 게 사실일까?",
-    keywords: "도쿄지하철,세계지하철,복잡한노선,일본교통,지하철비교",
-    meta_description: "도쿄, 런던, 뉴욕... 세계에서 가장 복잡한 지하철 노선 비교와 초심자 생존 팁.",
+    title: "도쿄 지하철은 회사가 여러 개인데 왜 한 노선망처럼 움직일까?",
+    keywords: "도쿄 지하철,환승,운영 주체,노선도,정시성",
+    meta_description: "운영 회사가 나뉜 도쿄의 철도가 하나처럼 이어지는 구조를 알아봅니다.",
   },
   {
     index: 45, slug: "mid-002", level: "중급편", category: "bidding",
@@ -303,9 +303,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 47, slug: "mid-004", level: "중급편", category: "tax",
-    title: "세계에서 가장 오래된 요리법을 재현한 셰프들",
-    keywords: "고대요리,수메르음식,고대이집트요리,역사요리,고고학음식",
-    meta_description: "4000년 전 수메르 점토판에 적힌 레시피를 실제로 재현해본 셰프의 놀라운 실험.",
+    title: "점토판에 적힌 고대 요리법은 어떻게 읽어낼까?",
+    keywords: "고대 요리법,점토판,식문화 복원,재료 추정,고고학",
+    meta_description: "수천 년 전 기록을 오늘의 주방에서 되살리려 할 때 생기는 난제들을 봅니다.",
   },
   {
     index: 48, slug: "mid-005", level: "중급편", category: "law",
@@ -333,9 +333,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 52, slug: "mid-009", level: "중급편", category: "after",
-    title: "세계에서 성별 평등 지수 1위 나라들의 실제 생활",
-    keywords: "성별평등,아이슬란드평등,성평등지수,여성지도자,북유럽평등",
-    meta_description: "14년 연속 세계 성별 격차 지수 1위 아이슬란드에서의 실제 직장과 가정 생활.",
+    title: "성평등 지수는 무엇을 재고, 무엇을 못 재나?",
+    keywords: "성평등 지수,지표 설계,측정 한계,정책 비교,통계 해석",
+    meta_description: "나라를 줄 세우는 지표가 실제로 무엇을 담고 무엇을 놓치는지 짚어봅니다.",
   },
   {
     index: 53, slug: "mid-010", level: "중급편", category: "tax",
@@ -345,9 +345,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 54, slug: "mid-011", level: "중급편", category: "law",
-    title: "물속에서 가장 오래 버틴 사람의 기록은 얼마나 될까?",
-    keywords: "수중호흡기록,프리다이빙,세계기록,스태틱무호흡,기네스",
-    meta_description: "무려 24분 37초 동안 숨을 참은 세계 기록 보유자의 훈련법과 비밀.",
+    title: "숨을 참으면 우리 몸에서는 무슨 일이 일어날까?",
+    keywords: "무호흡,잠수 반사,이산화탄소,프리다이빙,안전",
+    meta_description: "숨을 참는 동안 몸이 보이는 생리 반응과 그 위험을 설명합니다.",
   },
   {
     index: 55, slug: "mid-012", level: "중급편", category: "ai",
@@ -357,9 +357,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 56, slug: "mid-013", level: "중급편", category: "before",
-    title: "세계에서 가장 고립된 마을, 우편배달부가 없는 이유",
-    keywords: "트리스탄다쿠냐,세계최고립지,외딴섬,고립마을,영국령섬",
-    meta_description: "남대서양 한가운데 약 250명이 사는 세계에서 가장 고립된 거주 지역 트리스탄 다쿠냐 이야기.",
+    title: "길이 끊긴 마을에는 생필품이 어떻게 들어갈까?",
+    keywords: "오지 물류,보급선,헬기 수송,계절 도로,생활 인프라",
+    meta_description: "도로가 닿지 않는 마을이 물건을 받는 여러 방법을 알아봅니다.",
   },
   {
     index: 57, slug: "mid-014", level: "중급편", category: "bidding",
@@ -375,15 +375,15 @@ export const allTopics: Topic[] = [
   },
   {
     index: 59, slug: "mid-016", level: "중급편", category: "tax",
-    title: "세계에서 가장 오래된 와이너리, 6000년의 역사",
-    keywords: "세계최고령와이너리,아르메니아와인,고대와인,와인역사,아레니",
-    meta_description: "아르메니아 아레니 동굴에서 발견된 6100년 된 와이너리, 인류 최초 포도주 양조의 증거.",
+    title: "와인은 오래 두어도 왜 쉽게 상하지 않을까?",
+    keywords: "와인 보관,발효,산도,타닌,숙성",
+    meta_description: "와인이 긴 시간을 견디게 만드는 성분과 보관 조건을 살펴봅니다.",
   },
   {
     index: 60, slug: "mid-017", level: "중급편", category: "law",
-    title: "마라톤 역사상 가장 오래 걸린 완주 기록의 사연",
-    keywords: "가장늦은마라톤,시조무야마다,54년마라톤,올림픽마라톤,기이한기록",
-    meta_description: "1912년 올림픽 마라톤 출전 후 54년 만에 완주 처리된 일본 선수 시조 야마다의 기막힌 사연.",
+    title: "같은 42.195km인데 완주 시간은 왜 그렇게 갈릴까?",
+    keywords: "마라톤,페이스 배분,기온,코스 고저,수분 보충",
+    meta_description: "같은 거리에서도 기록이 크게 달라지는 변수들을 정리합니다.",
   },
   {
     index: 61, slug: "mid-018", level: "중급편", category: "ai",
@@ -393,9 +393,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 62, slug: "mid-019", level: "중급편", category: "before",
-    title: "세계에서 가장 큰 쇼핑몰, 웬만한 도시보다 넓다",
-    keywords: "세계최대쇼핑몰,두바이몰,신세계몰,쇼핑몰크기,실내도시",
-    meta_description: "내부에 수족관, 스키장, 아이스링크까지 있는 세계 최대 규모 쇼핑몰 TOP 5.",
+    title: "거대 쇼핑몰은 사람이 길을 잃지 않게 어떻게 설계할까?",
+    keywords: "동선 설계,사이니지,앵커 스토어,층별 배치,건축",
+    meta_description: "넓은 상업 공간에서 사람을 흐르게 만드는 설계 원리를 들여다봅니다.",
   },
   {
     index: 63, slug: "mid-020", level: "중급편", category: "bidding",
@@ -405,15 +405,15 @@ export const allTopics: Topic[] = [
   },
   {
     index: 64, slug: "mid-021", level: "중급편", category: "after",
-    title: "세계에서 가장 많은 언어가 쓰이는 나라는 어디일까?",
-    keywords: "파푸아뉴기니언어,세계언어수,다언어국가,언어다양성,소수언어",
-    meta_description: "무려 800개 이상의 언어가 쓰이는 파푸아뉴기니, 이웃 마을끼리도 언어가 다른 나라.",
+    title: "한 나라에 수백 개 언어가 공존하면 학교는 어떻게 할까?",
+    keywords: "다언어 사회,공용어,모어 교육,언어 정책,통역",
+    meta_description: "언어가 많은 나라가 교육과 행정에서 택하는 방법들을 살펴봅니다.",
   },
   {
     index: 65, slug: "mid-022", level: "중급편", category: "tax",
-    title: "세상에서 가장 비싼 피자 한 판의 가격은 얼마일까?",
-    keywords: "세계비싼피자,명품피자,황금피자,루이스피자,사치스러운음식",
-    meta_description: "식용 금박과 화이트 트러플, 랍스터 등 최고급 재료로 만든 세계 최고가 피자 TOP 5.",
+    title: "같은 피자인데 가게마다 값이 왜 크게 다를까?",
+    keywords: "원가 구조,임대료,식재료,인건비,가격 책정",
+    meta_description: "메뉴 하나의 가격이 정해지는 과정을 원가 관점에서 풀어봅니다.",
   },
   {
     index: 66, slug: "mid-023", level: "중급편", category: "law",
@@ -453,9 +453,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 72, slug: "mid-029", level: "중급편", category: "law",
-    title: "세계에서 가장 긴 수염과 손톱 기록 보유자들의 이야기",
-    keywords: "세계최장수염,최장손톱,기네스기록,수염기록,손톱기록",
-    meta_description: "수십 년간 키운 6미터짜리 수염과 9미터짜리 손톱, 기록 보유자들의 일상은 어떨까?",
+    title: "머리카락과 손톱은 왜 평생 계속 자랄까?",
+    keywords: "모발 주기,케라틴,손톱 성장,영양,개인차",
+    meta_description: "몸의 일부가 계속 자라는 이유와 속도를 가르는 요인을 알아봅니다.",
   },
   {
     index: 73, slug: "mid-030", level: "중급편", category: "ai",
@@ -477,15 +477,15 @@ export const allTopics: Topic[] = [
   },
   {
     index: 76, slug: "mid-033", level: "중급편", category: "after",
-    title: "세계에서 학교를 가장 오래 다니는 나라와 가장 짧게 다니는 나라",
-    keywords: "세계교육기간,핀란드교육,교육시간비교,세계학교,교육시스템",
-    meta_description: "학교를 20년 넘게 다니는 나라부터 6년이면 끝나는 나라까지, 세계 교육 기간의 차이.",
+    title: "의무교육 기간은 나라마다 왜 다르게 정해졌을까?",
+    keywords: "의무교육,학제,노동시장,교육 재정,제도 비교",
+    meta_description: "학교에 머무는 기간을 나라마다 다르게 만든 배경을 비교해 봅니다.",
   },
   {
     index: 77, slug: "mid-034", level: "중급편", category: "tax",
-    title: "음식에 금가루를 넣은 세계 최고가 버거, 가격은?",
-    keywords: "황금버거,금박음식,세계비싼버거,사치스러운음식,명품음식",
-    meta_description: "식용 금박으로 덮인 버거, 트러플을 넣은 맥주... 세계 최고가 패스트푸드들의 황당한 가격.",
+    title: "음식에 올리는 식용 금은 몸에 들어가면 어떻게 될까?",
+    keywords: "식용 금,금박,소화,식품 첨가물,안전성",
+    meta_description: "음식에 쓰는 금이 실제로 어떤 물질이고 몸에서 어떻게 되는지 봅니다.",
   },
   {
     index: 78, slug: "mid-035", level: "중급편", category: "law",
@@ -501,9 +501,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 80, slug: "mid-037", level: "중급편", category: "before",
-    title: "세계에서 가장 조용한 방, 들어가면 귀에서 이상한 소리가 들린다",
-    keywords: "무향실,최조용한방,마이크로소프트,청각실험,절대정숙",
-    meta_description: "-20.6dB을 기록한 세계에서 가장 조용한 방, 45분 이상 있으면 환청이 들리는 이유.",
+    title: "소리를 없앤 방에 들어가면 왜 내 몸 소리가 들릴까?",
+    keywords: "무향실,흡음,청각 적응,이명,소음 측정",
+    meta_description: "소리를 거의 제거한 공간에서 청각이 보이는 반응을 설명합니다.",
   },
   {
     index: 81, slug: "mid-038", level: "중급편", category: "bidding",
@@ -513,9 +513,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 82, slug: "mid-039", level: "중급편", category: "after",
-    title: "자살률이 가장 낮은 나라들의 공통적인 비결",
-    keywords: "자살률통계,세계자살률,그리스,스페인,정신건강국가",
-    meta_description: "자살률이 낮은 지중해 국가들의 공통점, 가족 유대감과 음식 문화가 미치는 영향.",
+    title: "사회 안전망이 두꺼운 나라들은 무엇이 다를까?",
+    keywords: "사회 안전망,복지 제도,상담 체계,공동체,정책 비교",
+    meta_description: "어려움에 처한 사람을 받치는 제도가 나라마다 어떻게 설계됐는지 살펴봅니다.",
   },
   {
     index: 83, slug: "mid-040", level: "중급편", category: "tax",
@@ -525,9 +525,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 84, slug: "mid-041", level: "중급편", category: "law",
-    title: "가장 빠른 시간 안에 드레스를 만든 기네스 기록의 주인공",
-    keywords: "기네스패션,드레스기록,패션스피드,웨딩드레스기록,봉제기록",
-    meta_description: "단 몇 분 만에 완성된 웨딩드레스, 기네스 기록에 도전한 패션 디자이너들의 이야기.",
+    title: "옷 한 벌은 원래 몇 단계를 거쳐 만들어질까?",
+    keywords: "패턴,재단,봉제,가봉,의류 생산",
+    meta_description: "디자인에서 완성까지 옷이 거치는 공정을 단계별로 따라가 봅니다.",
   },
   {
     index: 85, slug: "mid-042", level: "중급편", category: "ai",
@@ -557,21 +557,21 @@ export const allTopics: Topic[] = [
   },
   {
     index: 89, slug: "adv-003", level: "고급편", category: "after",
-    title: "세계에서 가장 오래 사는 나라들의 장수 비결 심층 분석",
-    keywords: "장수마을,오키나와장수,사르디니아장수,블루존,100세비결",
-    meta_description: "세계 5대 장수 지역 블루존의 공통점, 식단부터 사회적 유대까지 분석합니다.",
+    title: "장수 연구는 식습관과 유전을 어떻게 가려낼까?",
+    keywords: "장수 연구,코호트,교란 변수,유전과 환경,역학",
+    meta_description: "오래 사는 이유를 찾는 연구가 원인을 가려내는 방법과 그 한계를 봅니다.",
   },
   {
     index: 90, slug: "adv-004", level: "고급편", category: "tax",
-    title: "초콜릿의 역사, 고대 마야 화폐에서 세계 최고 간식으로",
-    keywords: "초콜릿역사,마야카카오,아즈텍초콜릿,카카오화폐,초콜릿진화",
-    meta_description: "화폐로 쓰이던 카카오 콩이 쓴 음료를 거쳐 달콤한 고체 초콜릿이 되기까지 3000년의 여정.",
+    title: "카카오는 어떻게 쓴 음료에서 달콤한 초콜릿이 됐을까?",
+    keywords: "카카오,발효,로스팅,콘칭,설탕",
+    meta_description: "카카오 열매가 지금의 초콜릿이 되기까지 바뀐 가공 방식을 따라갑니다.",
   },
   {
     index: 91, slug: "adv-005", level: "고급편", category: "law",
-    title: "기네스 기록을 위해 인생을 건 사람들의 놀라운 이야기",
-    keywords: "기네스헌신,기네스인생,기록도전,세계기록도전,기네스중독",
-    meta_description: "수십 개의 기네스 기록을 보유한 사람들, 기록 도전이 삶의 의미가 된 이유.",
+    title: "기록 도전은 왜 안전 규정이 그렇게 까다로울까?",
+    keywords: "기록 도전,안전 규정,심판 입회,중단 기준,책임",
+    meta_description: "위험한 도전에 따라붙는 규정과 그것이 만들어진 이유를 살펴봅니다.",
   },
   {
     index: 92, slug: "adv-006", level: "고급편", category: "ai",
@@ -593,9 +593,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 95, slug: "adv-009", level: "고급편", category: "after",
-    title: "세계에서 가장 많은 이민자를 받아들인 나라의 현실",
-    keywords: "이민자수용,독일이민,캐나다이민,다문화사회,난민통합",
-    meta_description: "이민자를 가장 많이 수용한 나라들에서 실제로 통합이 잘 이루어지고 있는지 살펴봅니다.",
+    title: "이민자가 많은 도시는 행정 서비스를 어떻게 바꿀까?",
+    keywords: "이민 행정,다국어 서비스,정착 지원,교육,지역사회",
+    meta_description: "여러 언어와 배경이 섞인 도시가 공공 서비스를 조정하는 방식을 봅니다.",
   },
   {
     index: 96, slug: "adv-010", level: "고급편", category: "tax",
@@ -641,9 +641,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 103, slug: "adv-017", level: "고급편", category: "law",
-    title: "세상에서 가장 오래된 살아있는 나무, 얼마나 됐을까?",
-    keywords: "가장오래된나무,므두셀라나무,쿠르무요나무,고대나무,수령",
-    meta_description: "무려 5000년 이상 살아있는 나무 므두셀라, 생명의 비밀과 위치가 비밀인 이유.",
+    title: "나무의 나이는 어떻게 알아낼까?",
+    keywords: "나이테,연륜연대학,코어 시료,기후 기록,수령 추정",
+    meta_description: "나무의 나이를 재는 방법과 그 수치가 어디까지 정확한지 알아봅니다.",
   },
   {
     index: 104, slug: "adv-018", level: "고급편", category: "ai",
@@ -665,9 +665,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 107, slug: "adv-021", level: "고급편", category: "after",
-    title: "세계에서 가장 엄격한 교통 법규를 가진 나라들",
-    keywords: "핀란드교통벌금,스웨덴교통,세계교통법,엄격한교통규정,교통위반",
-    meta_description: "소득에 비례하는 핀란드 교통 벌금, 운전 면허에만 수년이 걸리는 나라들의 교통 문화.",
+    title: "제한속도나 음주 기준은 무엇을 근거로 정해질까?",
+    keywords: "제한속도,사고 통계,단속 기준,도로 설계,안전",
+    meta_description: "교통 규정의 숫자가 정해지는 근거와 과정을 살펴봅니다.",
   },
   {
     index: 108, slug: "adv-022", level: "고급편", category: "tax",
@@ -701,9 +701,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 113, slug: "adv-027", level: "고급편", category: "after",
-    title: "세계에서 고독감을 가장 심각하게 다루는 나라들",
-    keywords: "고독부장관,외로움국가정책,영국고독장관,사회적고립,고독대책",
-    meta_description: "세계 최초로 외로움 담당 장관을 임명한 영국, 고독을 공중보건 문제로 다루는 이유.",
+    title: "외로움을 사회 정책으로 다룰 때 무엇부터 할까?",
+    keywords: "고립 문제,지역 모임,돌봄 연계,사회적 처방,공공 정책",
+    meta_description: "외로움을 사회 문제로 보고 접근하는 정책 수단들을 정리합니다.",
   },
   {
     index: 114, slug: "adv-028", level: "고급편", category: "tax",
@@ -737,9 +737,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 119, slug: "adv-033", level: "고급편", category: "after",
-    title: "세계에서 가장 오래 지속되는 음악 공연, 639년짜리",
-    keywords: "639년음악,존케이지ORGAN2,롱플레이음악,할버슈타트,느린음악",
-    meta_description: "2001년에 시작해 2640년에 끝나는 음악 공연, 독일 할버슈타트의 639년 프로젝트 이야기.",
+    title: "한 사람의 생애보다 긴 예술 프로젝트는 어떻게 이어갈까?",
+    keywords: "장기 프로젝트,악보 해석,관리 주체,세대 계승,보존",
+    meta_description: "사람의 수명보다 긴 작품이 끊기지 않게 유지되는 구조를 봅니다.",
   },
   {
     index: 120, slug: "adv-034", level: "고급편", category: "tax",
@@ -749,9 +749,9 @@ export const allTopics: Topic[] = [
   },
   {
     index: 121, slug: "adv-035", level: "고급편", category: "law",
-    title: "세상에서 가장 배우기 어려운 언어, 몇 년이나 걸릴까?",
-    keywords: "세계어려운언어,중국어난이도,아랍어,언어학습시간,외국어난이도",
-    meta_description: "미국 외교관 훈련소가 측정한 언어 난이도 분류, 가장 배우기 어려운 언어는 무엇일까?",
+    title: "언어 난이도는 모국어에 따라 어떻게 달라질까?",
+    keywords: "언어 습득,모국어 간섭,문자 체계,문법 거리,학습 시간",
+    meta_description: "어떤 언어가 어렵게 느껴지는지가 배우는 사람에 따라 달라지는 이유를 봅니다.",
   },
   {
     index: 122, slug: "adv-036", level: "고급편", category: "ai",
@@ -779,15 +779,15 @@ export const allTopics: Topic[] = [
   },
   {
     index: 126, slug: "adv-040", level: "고급편", category: "tax",
-    title: "세계에서 가장 독특한 방식으로 만드는 희귀 음료들",
-    keywords: "희귀음료,특이한술,세계희귀음식,발효음료,전통음료",
-    meta_description: "황소 정액 칵테일부터 야크 버터 차까지, 전 세계에서 실제로 마시는 가장 독특한 음료들.",
+    title: "발효 음료는 지역마다 왜 전혀 다른 맛이 날까?",
+    keywords: "발효,토착 미생물,기후,재료,전통 음료",
+    meta_description: "같은 발효인데 지역마다 다른 음료가 나오는 이유를 살펴봅니다.",
   },
   {
     index: 127, slug: "adv-041", level: "고급편", category: "law",
-    title: "지구에서 가장 오래된 생물, 불멸의 해파리 이야기",
-    keywords: "불멸해파리,투리토프시스,생물학적불멸,회춘동물,영원한생명",
-    meta_description: "죽음 직전 다시 어린 상태로 되돌아갈 수 있는 해파리 투리토프시스 도르니이의 불멸 메커니즘.",
+    title: "해파리는 어떻게 몸을 어린 단계로 되돌릴까?",
+    keywords: "해파리,생애 전환,세포 재프로그래밍,노화 연구,무성생식",
+    meta_description: "일부 해파리가 어린 단계로 돌아가는 과정과 그 연구 의미를 봅니다.",
   },
   {
     index: 128, slug: "adv-042", level: "고급편", category: "ai",
@@ -803,8 +803,8 @@ export const allTopics: Topic[] = [
   },
   {
     index: 130, slug: "adv-044", level: "고급편", category: "bidding",
-    title: "자연계에서 발견된 가장 놀라운 공생 관계들",
-    keywords: "공생관계,악어새,공생동물,자연공생,상리공생",
-    meta_description: "악어와 새, 흰개미와 곰팡이, 꽃과 벌... 서로 없으면 살 수 없는 자연의 놀라운 파트너십.",
+    title: "공생 관계는 어떻게 시작되고 언제 깨질까?",
+    keywords: "공생,상호이익,기생 전환,진화,생태계",
+    meta_description: "서로 돕는 관계가 만들어지고 때로 무너지는 과정을 사례로 봅니다.",
   },
 ];
