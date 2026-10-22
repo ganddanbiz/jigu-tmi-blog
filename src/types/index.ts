@@ -12,6 +12,9 @@ export interface Post {
   created_at: string;
   updated_at: string;
   view_count: number;
+  sources?: { name: string; url?: string; publisher?: string; published_at?: string; verified_at?: string }[];
+  review_status?: "needs_review" | "reviewed" | "approved";
+  last_fact_checked_at?: string | null;
 }
 
 export interface Comment {

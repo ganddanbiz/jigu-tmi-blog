@@ -1,32 +1,35 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap");
 @import "tailwindcss";
 
-/* ── Design Tokens (지구촌 TMI — Deep Teal & Coral) */
+/* ── Design Tokens (지구촌 TMI 2.0 — Deep Navy & Teal Magazine) */
 :root {
-  --bg:           #f0f9fc;
+  --bg:           #F6F5F0;
   --bg-card:      #ffffff;
-  --ink:          #092938;
-  --ink-mid:      #1e4f63;
-  --ink-muted:    #4a7f96;
-  --ink-faint:    #8ab8cc;
-  --border:       #c8e4ee;
-  --border-light: #e0f2f8;
+  --ink:          #10263B;
+  --ink-mid:      #1e3a52;
+  --ink-muted:    #536475;
+  --ink-faint:    #8a9bab;
+  --border:       #d8dde2;
+  --border-light: #eceef0;
 
-  --accent:       #0891b2;
-  --accent-hover: #0672a0;
-  --accent-faint: #e0f5fb;
+  --accent:       #27B8AC;
+  --accent-hover: #1f9e93;
+  --accent-faint: #e6f7f5;
 
-  --header-bg:    #0a3d52;
-  --header-text:  #e8f6fa;
-  --header-muted: #6ab4cc;
+  --amber:        #F1B95B;
+  --amber-faint:  #fdf4e3;
 
-  /* Category */
-  --cat-before-c:  #0369a1; --cat-before-bg:  #e0f2fe;
-  --cat-bidding-c: #c2410c; --cat-bidding-bg: #ffedd5;
-  --cat-after-c:   #0f766e; --cat-after-bg:   #ccfbf1;
-  --cat-tax-c:     #15803d; --cat-tax-bg:     #dcfce7;
-  --cat-law-c:     #6d28d9; --cat-law-bg:     #ede9fe;
-  --cat-ai-c:      #1d4ed8; --cat-ai-bg:      #dbeafe;
+  --header-bg:    #10263B;
+  --header-text:  #f0f2f4;
+  --header-muted: #8aaabb;
+
+  /* Category — Navy/Teal 조화 팔레트 */
+  --cat-before-c:  #0c5a8a; --cat-before-bg:  #e4f0f8;
+  --cat-bidding-c: #b8520e; --cat-bidding-bg: #fef0e4;
+  --cat-after-c:   #0e7068; --cat-after-bg:   #e2f5f3;
+  --cat-tax-c:     #1a7a3a; --cat-tax-bg:     #e3f5e8;
+  --cat-law-c:     #6225c0; --cat-law-bg:     #eeecfc;
+  --cat-ai-c:      #1848c5; --cat-ai-bg:      #e2eafc;
 
   /* Level */
   --lv-basic-c: #047857; --lv-basic-bg: #d1fae5;
@@ -111,7 +114,7 @@ body {
   transition: background 0.2s;
 }
 .feed-article:hover::before { background: var(--accent); }
-.feed-article:hover { background: #fdfcf9; }
+.feed-article:hover { background: #f9f8f4; }
 
 .feed-title {
   font-family: var(--font-serif);
@@ -127,6 +130,34 @@ body {
 @media (min-width: 768px) {
   .feed-title { font-size: 1.5rem; }
   .feed-article { padding: 2.5rem 3rem; }
+}
+
+/* ── Hero card ─────────────────────────────────── */
+.hero-card { transition: box-shadow 0.2s; }
+.hero-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+
+/* ── Quick TMI card ────────────────────────────── */
+.quick-tmi-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+.quick-tmi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 768px) {
+  .quick-tmi-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Post card grid (responsive 3/2/1 columns) ─── */
+.post-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+@media (max-width: 1024px) {
+  .post-card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .post-card-grid { grid-template-columns: 1fr; }
 }
 
 /* ── Post card ──────────────────────────────────── */
@@ -349,7 +380,10 @@ body {
   color: var(--ink-mid);
 }
 .prose table tr:last-child td { border-bottom: none; }
-.prose table tr:nth-child(even) td { background: #faf8f4; }
+.prose table tr:nth-child(even) td { background: #f7f6f2; }
+
+/* ── Related card ──────────────────────────────── */
+.related-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
 
 /* ── Feed more link ─────────────────────────────── */
 .feed-more-link {
@@ -499,5 +533,35 @@ body {
 
   .post-card-body { padding: 0.875rem 1rem 1rem; }
 
-  .page-btn { min-width: 2.5rem; height: 2.5rem; font-size: 0.9375rem; }
+  .page-btn { min-width: 2.75rem; height: 2.75rem; font-size: 0.9375rem; }
+
+  /* 히어로 모바일 */
+  .hero-card { min-height: 14rem !important; }
+
+  /* Quick TMI 모바일 1열 */
+  .quick-tmi-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── Accessibility: focus visible ──────────────── */
+a:focus-visible,
+button:focus-visible,
+.cat-tab:focus-visible,
+.page-btn:focus-visible,
+.view-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Touch target minimum 44px ─────────────────── */
+.cat-tab { min-height: 44px; }
+.page-btn { min-height: 44px; }
+.view-btn { min-height: 44px; }
+
+/* ── Reduced motion preference ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

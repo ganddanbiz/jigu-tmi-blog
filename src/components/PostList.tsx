@@ -92,13 +92,20 @@ export default function PostList({ posts }: PostListProps) {
               </div>
             )}
 
-            {/* 본문 */}
-            {post.content && (
-              <div
-                className="prose"
-                style={{ marginTop: "1.25rem" }}
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
+            {/* 요약 (본문 대신 meta_description) */}
+            {post.meta_description && (
+              <p style={{
+                marginTop: "0.875rem",
+                fontSize: "0.9rem",
+                lineHeight: 1.7,
+                color: "var(--ink-muted)",
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 3,
+                overflow: "hidden",
+              }}>
+                {post.meta_description}
+              </p>
             )}
 
             {/* 하단 */}

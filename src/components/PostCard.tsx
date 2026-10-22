@@ -58,17 +58,14 @@ export default function PostCard({ posts }: PostCardProps) {
 
   const adSlot = process.env.NEXT_PUBLIC_ADSENSE_SLOT_LIST || "";
   const chunks = chunkArray(posts, CHUNK_SIZE);
-  const gridStyle = {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-    gap: "1rem",
-  };
+  // CSS class를 사용해 반응형 3열/2열/1열 그리드 적용
+  const gridClassName = "post-card-grid";
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       {chunks.map((chunk, chunkIndex) => (
         <div key={chunkIndex}>
-          <div style={gridStyle}>
+          <div className={gridClassName}>
             {chunk.map((post) => {
               const cat = post.category || "before";
               const accent = catAccent[cat] || "var(--accent)";

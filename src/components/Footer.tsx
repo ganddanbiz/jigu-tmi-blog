@@ -11,7 +11,7 @@ export default function Footer() {
       marginTop: "auto",
     }}>
       <div style={{
-        maxWidth: "56rem",
+        maxWidth: "72rem",
         margin: "0 auto",
         padding: "2rem 1.5rem",
         display: "flex",
