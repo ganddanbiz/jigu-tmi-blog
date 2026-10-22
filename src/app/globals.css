@@ -409,7 +409,7 @@ body {
 /* ── Wing Banner ────────────────────────────────── */
 .wing-banner {
   position: fixed;
-  left: calc(50% + 26rem + 2.5rem);  /* 본문 틀(52rem) 오른쪽 + 충분한 여백 */
+  left: calc(50% + 36rem + 2.5rem);  /* 메인 본문 틀(72rem) 오른쪽 + 여백 */
   top: 7rem;
   display: flex;
   flex-direction: column;
@@ -418,7 +418,7 @@ body {
   width: 9.5rem;
 }
 
-@media (max-width: 1380px) {
+@media (max-width: 1540px) {
   .wing-banner { display: none; }
 }
 
