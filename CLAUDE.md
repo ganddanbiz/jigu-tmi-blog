@@ -128,7 +128,7 @@ vercel deploy --prebuilt --prod
 
 ## 쿠팡 광고
 - 캐러셀(`CoupangAd`)은 쿠팡 `widgets.html` iframe으로만 넣는다 (스크립트 g.js를 동적으로 넣으면 푸터 아래 왼쪽에 붙음). 가운데 정렬
-- 날개 배너(`.wing-banner`): 본문 틀(52rem) 오른쪽, 헤더 아래(`top: 7rem`), 1240px 이상에서만 보임 (2026-10-15)
+- 날개 배너(`.wing-banner`): 본문 틀(`--wrap: 72rem`) 오른쪽에 fixed, `left: calc(50% + var(--wrap)/2 + 1.25rem)`, 헤더 아래(`top: 7rem`), 1520px 미만에서 숨김 (2026-10-22 CSS 변수 방식으로 전환)
 
 ## 발행 현황
 - 총 3편 발행 (basic-003까지, 2026-06-25 기준)
