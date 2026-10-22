@@ -3,6 +3,7 @@
 
 /* ── Design Tokens (지구촌 TMI 2.0 — Deep Navy & Teal Magazine) */
 :root {
+  --wrap:         72rem;
   --bg:           #F6F5F0;
   --bg-card:      #ffffff;
   --ink:          #10263B;
@@ -407,9 +408,11 @@ body {
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* ── Wing Banner ────────────────────────────────── */
+/* 본문 틀(--wrap) 바로 오른쪽, 헤더 아래에 고정.
+   본문과 겹치지 않는 넓은 화면에서만 보인다. */
 .wing-banner {
   position: fixed;
-  left: calc(50% + 36rem + 2.5rem);  /* 메인 본문 틀(72rem) 오른쪽 + 여백 */
+  left: calc(50% + var(--wrap) / 2 + 1.25rem);
   top: 7rem;
   display: flex;
   flex-direction: column;
@@ -418,7 +421,7 @@ body {
   width: 9.5rem;
 }
 
-@media (max-width: 1540px) {
+@media (max-width: 1519px) {
   .wing-banner { display: none; }
 }
 
