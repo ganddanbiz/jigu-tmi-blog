@@ -5,6 +5,7 @@ import pool from "@/lib/db";
 import { Post } from "@/types";
 import Image from "next/image";
 import JsonLd from "@/components/JsonLd";
+import ViewCounter from "@/components/ViewCounter";
 import CommentSection from "@/components/CommentSection";
 import LikeButton from "@/components/LikeButton";
 import ShareButton from "@/components/ShareButton";
@@ -102,7 +103,6 @@ export default async function PostPage({ params }: Props) {
   const post = await getPost(slug);
   if (!post) notFound();
 
-  await pool.query("UPDATE posts SET view_count = view_count + 1 WHERE id = $1", [post.id]);
   const [likeCount, relatedPosts] = await Promise.all([
     getLikeCount(post.id),
     getRelatedPosts(post.category, post.id),
@@ -123,6 +123,7 @@ export default async function PostPage({ params }: Props) {
   return (
     <>
       <JsonLd post={post} />
+      <ViewCounter postId={post.id} />
       <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
 
         {/* ── 상단 내비 ─────────────────────────── */}
