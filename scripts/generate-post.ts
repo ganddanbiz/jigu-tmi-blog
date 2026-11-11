@@ -183,7 +183,8 @@ function injectImagesIntoContent(html: string, images: ImageResult[]): string {
   // h2 섹션 1, 2, 3, 4 뒤에 이미지 삽입
   const targets: Array<[number, number]> = [[1, 0], [2, 1], [3, 2], [4, 3]];
   for (const [partIdx, imgIdx] of targets) {
-    if (partIdx >= parts.length || !images[imgIdx]) continue;
+    // 마지막 조각은 「💡 TMI 한 줄 요약」 뒤라 사진을 넣지 않는다
+    if (partIdx >= parts.length - 1 || !images[imgIdx]) continue;
     const img = images[imgIdx];
     const figure = [
       `<figure style="margin:1.75em 0;position:relative;display:block;">`,
@@ -195,7 +196,7 @@ function injectImagesIntoContent(html: string, images: ImageResult[]): string {
       img.attribution,
       `</figcaption></figure>`,
     ].join("");
-    parts[partIdx] = parts[partIdx] + figure;
+    parts[partIdx] = figure + parts[partIdx]; // </h2> 바로 뒤 — 끝에 붙이면 다음 <h2> 안에 들어간다(2026-11-11)
   }
   return parts.join(DELIMITER);
 }
@@ -243,7 +244,7 @@ function buildPrompt(topic: Topic, recentTitles: string[] = []): string {
    - 나쁜 예: "안녕하세요", "오늘은 ~에 대해 알아보겠습니다" → 금지
 6. 경제, 정치, 전쟁 관련 내용은 포함하지 않음
 7. 2000자 내외로 가볍게 작성 (스마트폰으로 5분 내 읽을 분량)
-8. 재미있는 사실, 신기한 수치, 예상을 깨는 반전 내용 반드시 포함
+8. 재미있는 사실과 예상을 깨는 반전을 포함한다 (수치는 출처가 확실한 것만 — 없어도 된다)
 9. 표와 목록을 활용해 눈으로 읽기 편하게 구성
 10. 글 마지막에 반드시 "💡 TMI 한 줄 요약" 섹션 포함
 11. 연구·기록은 범위를 정확히 쓴다 — 누가(어느 기관), 어떤 조건에서, 무엇을 확인했는지.
@@ -260,6 +261,17 @@ function buildPrompt(topic: Topic, recentTitles: string[] = []): string {
     맞혀야 할 단일 수치·기록보다 현상의 배경·원리·과정을 다룬다
     나쁜 예: "세계에서 가장 매운 음식의 스코빌 지수는?" (정확한 수치를 못 쓰면 날조)
     좋은 예: "매운 음식을 먹으면 우리 몸에서 어떤 일이 벌어질까?" (과정 설명)
+15. 검수에서 보류된 실제 유형 — 아래는 절대 쓰지 않는다 (2026-10-27~11-11 보류 18건의 사유)
+    - 연구자·대학 이름을 붙인 연구 인용: 저자·연도·학술지까지 확실히 아는 유명 연구만 쓴다
+      나쁜 예: "1980년대 윌리엄 제임스가 주도한 돌고래 실험", "듀크·노스웨스턴 대학 추적 연구에 따르면"
+      대신: "돌고래가 거울 속 자신을 알아보는지 확인한 실험들이 있다"처럼 특정하지 않는다
+    - 연도·장소가 붙은 구체 사건·일화: "2014년 ○○공항에서 두리안 때문에 비행기가 착륙했다" 같은 사건을 만들지 않는다
+    - 이름 없는 주체: "전문가들에 따르면", "한 푸드테크 기업이", "홍콩의 한 미슐랭 셰프는" 같은 표현 금지
+    - 분포·비율 수치: "세계 인구의 40%는 손으로" 같은 비율, "평당 1억", "5~10배"처럼 꾸민 범위를 쓰지 않는다
+    - 숫자 세기: 회사·노선·나라 수처럼 셀 수 있는 것은 확실할 때만 쓴다 (나쁜 예: 도쿄 지하철 운영사 "9개" ← 실제 2곳)
+    - 주제 제목의 전제가 사실과 다르면 전제를 바로잡는 글로 쓴다 (예: "인터넷이 없는 나라" → 실제로 완전히 없는 나라는 없다고 먼저 밝힌다)
+16. 쓰기 전에 스스로 점검한다: 글에 든 고유명사·연도·수치를 하나씩 보고, 실제로 확인된 사실이라고 확신하지 못하면 문장을 일반 설명으로 바꾸거나 지운다.
+    수치·사례가 적어도 원리를 잘 설명한 글이 통과한다. "신기한 수치"(8번)는 확실한 것만 1~2개면 충분하다.
 
 [출력 형식]
 - 순수 HTML만 출력 (마크다운 기호 절대 사용 금지)

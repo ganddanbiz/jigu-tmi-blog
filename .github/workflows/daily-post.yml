@@ -1,8 +1,8 @@
 name: Daily Blog Post Generation
 
 on:
-  schedule:
-    - cron: '0 7 * * 2,5'     # UTC 07:00 = KST 16:00, 화·금 주2회 — 구독 사용량 분산(2026-10-13)
+  # 2026-11-11 cron 제거: GitHub 예약 실행이 3~8시간 밀려 검수관 재지시 칸을 먼저 써 버렸다.
+  # 발행 시각은 컨트롤타워 채널등록부.json 발행일정(트리거: 검수관) — 검수관이 정시 직후 workflow_dispatch로 실행한다.
   workflow_dispatch:          # 수동 실행 가능
 
 jobs:

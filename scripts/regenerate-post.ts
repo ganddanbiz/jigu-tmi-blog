@@ -103,7 +103,7 @@ function injectImagesIntoContent(html: string, images: ImageResult[]): string {
       img.attribution,
       `</figcaption></figure>`,
     ].join("");
-    parts[partIdx] = parts[partIdx] + figure;
+    parts[partIdx] = figure + parts[partIdx]; // </h2> 바로 뒤 — 끝에 붙이면 다음 <h2> 안에 들어간다(2026-11-11)
   }
   return parts.join(DELIMITER);
 }
