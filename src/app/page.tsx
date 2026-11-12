@@ -7,6 +7,7 @@ import PostCard from "@/components/PostCard";
 import ViewToggle from "@/components/ViewToggle";
 import Pagination from "@/components/Pagination";
 import PostShareButton from "@/components/PostShareButton";
+import SudokuBanner from "@/components/SudokuBanner";
 
 const LIMIT = 9;
 
@@ -180,6 +181,8 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
       </div>
 
       <main style={{ maxWidth: "72rem", margin: "0 auto", padding: "0 1.5rem" }}>
+
+        <SudokuBanner />
 
         {/* ── 히어로: Today's Curiosity ──────────── */}
         {heroPost && (

@@ -11,6 +11,7 @@ import LikeButton from "@/components/LikeButton";
 import ShareButton from "@/components/ShareButton";
 import Link from "next/link";
 import CoupangAd from "@/components/CoupangAd";
+import SudokuBanner from "@/components/SudokuBanner";
 
 export const revalidate = 3600;
 
@@ -259,6 +260,8 @@ export default async function PostPage({ params }: Props) {
               <ShareButton title={post.title} />
             </div>
           </article>
+
+          <SudokuBanner />
 
           {/* ── 관련 기사 ─────────────────────────── */}
           {relatedPosts.length > 0 && (
