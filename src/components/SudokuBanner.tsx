@@ -2,7 +2,7 @@ export default function SudokuBanner() {
   return (
     <a
       className="sudoku-banner"
-      href="https://tugman77.github.io/maeil-sudoku/"
+      href="https://tugman77.github.io/maeil-game/sudoku/"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="매일 스도쿠, 매일 새 문제 무료로 풀기 (새 탭에서 열림)"
