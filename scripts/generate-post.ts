@@ -5,6 +5,7 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
+import { withCodexWriter } from "./writer";
 import { Pool, neonConfig } from "@neondatabase/serverless";
 import ws from "ws";
 import { allTopics, Topic } from "./topics";
@@ -32,9 +33,10 @@ if (!oauthToken && !apiKey) {
   );
   process.exit(1);
 }
-const anthropic = oauthToken
+// 집필은 Codex(ChatGPT 구독)가 먼저, 실패하면 Claude가 대신 쓴다 (2026-11-23, scripts/writer.ts · WRITER=claude로 되돌림)
+const anthropic = withCodexWriter(oauthToken
   ? new Anthropic({ authToken: oauthToken, maxRetries: 3, timeout: 90_000 })
-  : new Anthropic({ apiKey: apiKey!, maxRetries: 3, timeout: 90_000 });
+  : new Anthropic({ apiKey: apiKey!, maxRetries: 3, timeout: 90_000 }), "jigutmi");
 
 // ── 카테고리 → 이미지 검색어 맵 ──────────────────
 const CATEGORY_QUERY: Record<string, string> = {
@@ -357,7 +359,7 @@ async function main() {
     }
     writeLog(`📝 주제 선택: [${topic.level}] ${topic.index}/130 - ${topic.title}`);
 
-    writeLog("🤖 Claude로 글 생성 중...");
+    writeLog("🤖 글 생성 중 (Codex → 실패 시 Claude)...");
     const recentTitles = await getRecentTitles(7);
     const prompt = buildPrompt(topic, recentTitles);
     const msg = await callWithRetry(() => anthropic.messages.create({

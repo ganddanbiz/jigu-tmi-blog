@@ -8,7 +8,7 @@
 | 언어 | 한국어 |
 | 주제 | 세계의 신기하고 재미있는 뉴스·이야기 (지구촌 TMI) |
 | 타겟 독자 | 세계 뉴스에 관심 있는 한국 독자 |
-| AI 모델 | Claude Haiku 4.5 (`claude-haiku-4-5-20251001`) |
+| AI 모델 | **Codex(ChatGPT 구독, `scripts/writer.ts`) 집필**, 실패 시 Claude Haiku 4.5가 대신 씀 (2026-11-23~, 되돌리기 `WRITER=claude`) · 검수는 컨트롤타워 검수관(Claude) |
 | 이미지 | Unsplash API + Pexels API (폴백) |
 | DB | Neon PostgreSQL (ap-southeast-1) |
 | GitHub | ganddanbiz/jigu-tmi-blog |
