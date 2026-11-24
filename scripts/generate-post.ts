@@ -10,6 +10,7 @@ import { Pool, neonConfig } from "@neondatabase/serverless";
 import ws from "ws";
 import { allTopics, Topic } from "./topics";
 import { planQueries, pickImage } from "./images";
+import { codexImage, storeAiImage } from "./ai-image";
 
 neonConfig.webSocketConstructor = ws;
 import * as dotenv from "dotenv";
@@ -386,6 +387,26 @@ async function main() {
     for (let i = 0; i < sectionHeads.length; i++) {
       inlineImages.push(await pickImage(q.sections[i], `글 제목: 「${topic.title}」\n이 칸의 소제목: 「${sectionHeads[i]}」`, usedIds, writeLog));
     }
+    // 맞는 사진이 없는 칸은 AI 그림으로 (2026-11-24 대표님 지시) — 대표 이미지 우선, 글당 최대 AI_IMAGE_MAX(기본 2)장
+    const aiMax = Number(process.env.AI_IMAGE_MAX ?? 2);
+    let aiMade = 0;
+    const makeAi = async (subject: string, alt: string): Promise<ImageResult | null> => {
+      if (aiMade >= aiMax) return null;
+      const prompt = `Create one 16:9 landscape editorial illustration (clearly an illustration, not a photograph) for a Korean general-knowledge blog article titled "${topic.title}". ` +
+        `Show: ${subject}. Clean, detailed, friendly magazine style with soft colors. ` +
+        `No text, letters or numbers anywhere; no logos or brand marks; no national flags; no recognizable real people or faces.`;
+      const jpg = await codexImage(prompt, writeLog);
+      if (!jpg) return null;
+      aiMade++;
+      const url = await storeAiImage((t, p) => pool.query(t, p).then((r) => r.rows), topic.slug, jpg, prompt);
+      writeLog(`🎨 AI 그림으로 채움: ${alt} → ${url}`);
+      return { url, attribution: "AI 생성 이미지" };
+    };
+    thumbnail ??= await makeAi(q.thumb, topic.title);
+    for (let i = 0; i < inlineImages.length; i++) {
+      if (!inlineImages[i]) inlineImages[i] = await makeAi(q.sections[i], sectionHeads[i]);
+    }
+
     // 본문 사진이 하나도 없으면 대표 이미지를 첫 칸에, 대표 이미지가 없으면 첫 본문 사진을 대표로
     if (!inlineImages.some(Boolean) && thumbnail) inlineImages[0] = thumbnail;
     thumbnail ??= inlineImages.find(Boolean) ?? null;
