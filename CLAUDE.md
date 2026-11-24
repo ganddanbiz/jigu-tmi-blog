@@ -126,7 +126,7 @@ vercel deploy --prebuilt --prod
 - 이제 ① ChatGPT(Codex 구독, low)가 제목·소제목(마지막 'TMI 한 줄 요약' 제외, 최대 4개)마다 영어 검색어를 정하고 ② Unsplash 2 + Pexels 2 후보를 ③ ChatGPT(medium, 사진 첨부)가 YES/NO로 판정 → 맞는 첫 사진. 다 탈락이면 그 칸은 비운다. alt는 소제목.
 - 본문 사진이 하나도 없으면 대표 이미지를 첫 칸에, 대표가 없으면 첫 본문 사진을 대표로. 둘 다 없으면 예전 카테고리 사진(검사 없음).
 - Codex가 없거나(깃허브 예비) 한도면 판정 없이 첫 후보를 쓴다(발행이 멈추지 않게). 판정 끄기 `IMAGE_VISION=0`.
-- **맞는 사진이 없는 칸은 AI 그림**(2026-11-24 대표님 지시, `scripts/ai-image.ts`): Codex 이미지 생성 → Neon `ai_images` 표 → 사이트 `/img/<id>`(`src/app/img/[id]/route.ts`). 캡션 'AI 생성 이미지', 글자·상표·국기·실존 인물 금지. 대표 이미지 우선, 글당 최대 `AI_IMAGE_MAX`(기본 2)장, 끄기 `AI_IMAGE=0`. ⚠️ `/img` 주소는 Vercel 정지 해제(12-15) 뒤 배포돼야 보인다.
+- **맞는 사진이 없는 칸은 AI 그림**(2026-11-24 대표님 지시, `scripts/ai-image.ts`): Codex 이미지 생성 → Neon `ai_images` 표 → 사이트 `/img/<id>`(`src/app/img/[id]/route.ts`). 실사풍(대표님 11-24), 캡션 'AI 생성 이미지', 글자·상표·국기·실존 인물 금지. 대표 이미지 우선, 글당 최대 `AI_IMAGE_MAX`(기본 2)장, 끄기 `AI_IMAGE=0`. ⚠️ `/img` 주소는 Vercel 정지 해제(12-15) 뒤 배포돼야 보인다.
 
 ## 쿠팡 광고
 - 캐러셀(`CoupangAd`)은 쿠팡 `widgets.html` iframe으로만 넣는다 (스크립트 g.js를 동적으로 넣으면 푸터 아래 왼쪽에 붙음). 가운데 정렬

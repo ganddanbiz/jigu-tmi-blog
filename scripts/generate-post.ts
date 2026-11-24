@@ -392,8 +392,9 @@ async function main() {
     let aiMade = 0;
     const makeAi = async (subject: string, alt: string): Promise<ImageResult | null> => {
       if (aiMade >= aiMax) return null;
-      const prompt = `Create one 16:9 landscape editorial illustration (clearly an illustration, not a photograph) for a Korean general-knowledge blog article titled "${topic.title}". ` +
-        `Show: ${subject}. Clean, detailed, friendly magazine style with soft colors. ` +
+      // 블로그는 실사에 가깝게 (2026-11-24 대표님: Korean Home Cooking처럼. 뉴스만 도식) — 캡션 'AI 생성 이미지'
+      const prompt = `Create one photorealistic 16:9 landscape editorial photograph for a Korean general-knowledge blog article titled "${topic.title}". ` +
+        `Show: ${subject}. Natural light, realistic detail, documentary / nature-magazine photo style. ` +
         `No text, letters or numbers anywhere; no logos or brand marks; no national flags; no recognizable real people or faces.`;
       const jpg = await codexImage(prompt, writeLog);
       if (!jpg) return null;
