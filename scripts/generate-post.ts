@@ -9,6 +9,7 @@ import { withCodexWriter } from "./writer";
 import { Pool, neonConfig } from "@neondatabase/serverless";
 import ws from "ws";
 import { allTopics, Topic } from "./topics";
+import { planQueries, pickImage } from "./images";
 
 neonConfig.webSocketConstructor = ws;
 import * as dotenv from "dotenv";
@@ -178,19 +179,20 @@ async function fetchImages(category: string, usedIds: Set<string>): Promise<Imag
 }
 
 // ── 콘텐츠 내 이미지 삽입 (h2 뒤마다 삽입) ───────
-function injectImagesIntoContent(html: string, images: ImageResult[]): string {
-  if (!images.length) return html;
+// images[i]는 i번째 h2 섹션의 사진(없으면 null → 그 칸은 비움), alts[i]는 그 소제목
+function injectImagesIntoContent(html: string, images: Array<ImageResult | null>, alts: string[] = []): string {
+  if (!images.some(Boolean)) return html;
   const DELIMITER = "</h2>";
   const parts = html.split(DELIMITER);
-  // h2 섹션 1, 2, 3, 4 뒤에 이미지 삽입
-  const targets: Array<[number, number]> = [[1, 0], [2, 1], [3, 2], [4, 3]];
-  for (const [partIdx, imgIdx] of targets) {
+  for (let imgIdx = 0; imgIdx < 4; imgIdx++) {
+    const partIdx = imgIdx + 1;
     // 마지막 조각은 「💡 TMI 한 줄 요약」 뒤라 사진을 넣지 않는다
     if (partIdx >= parts.length - 1 || !images[imgIdx]) continue;
-    const img = images[imgIdx];
+    const img = images[imgIdx]!;
+    const alt = (alts[imgIdx] || "관련 이미지").replace(/"/g, "&quot;");
     const figure = [
       `<figure style="margin:1.75em 0;position:relative;display:block;">`,
-      `<img src="${img.url}" alt="관련 이미지" loading="lazy"`,
+      `<img src="${img.url}" alt="${alt}" loading="lazy"`,
       ` style="width:100%;max-height:400px;object-fit:cover;border-radius:10px;border:1px solid var(--border);display:block;" />`,
       `<figcaption style="position:absolute;bottom:8px;right:10px;font-size:0.65rem;`,
       `color:rgba(255,255,255,0.85);background:rgba(0,0,0,0.45);`,
@@ -373,12 +375,30 @@ async function main() {
 
     writeLog("🖼️  이미지 가져오는 중...");
     const usedIds = await getUsedImageIds();
-    const allImages = await fetchImages(topic.category, usedIds);
-    const thumbnail = allImages[0] ?? null;
-    const inlineImages = allImages.slice(1);
-    const contentWithImages = injectImagesIntoContent(content, inlineImages);
+    // 소제목마다 맞는 사진 (2026-11-24, scripts/images.ts) — 맞는 게 없으면 그 칸은 비운다
+    const headings = [...content.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g)].map((m) => m[1].replace(/<[^>]+>/g, "").trim());
+    const sectionHeads = headings.slice(0, Math.min(4, Math.max(0, headings.length - 1))); // 마지막 h2(TMI 한 줄 요약) 제외
+    const fallbackQuery = CATEGORY_QUERY[topic.category] ?? "world news people";
+    const q = planQueries(topic.title, sectionHeads, fallbackQuery);
+    writeLog(`🔎 사진 검색어: 대표 "${q.thumb}" · ${q.sections.map((x) => `"${x}"`).join(", ")}`);
+    let thumbnail = await pickImage(q.thumb, `글 제목: 「${topic.title}」 (대표 이미지)`, usedIds, writeLog);
+    const inlineImages: Array<ImageResult | null> = [];
+    for (let i = 0; i < sectionHeads.length; i++) {
+      inlineImages.push(await pickImage(q.sections[i], `글 제목: 「${topic.title}」\n이 칸의 소제목: 「${sectionHeads[i]}」`, usedIds, writeLog));
+    }
+    // 본문 사진이 하나도 없으면 대표 이미지를 첫 칸에, 대표 이미지가 없으면 첫 본문 사진을 대표로
+    if (!inlineImages.some(Boolean) && thumbnail) inlineImages[0] = thumbnail;
+    thumbnail ??= inlineImages.find(Boolean) ?? null;
+    // 그래도 없으면 예전 방식(카테고리 사진, 검사 없음) — 발행이 멈추지 않게
+    if (!thumbnail) {
+      const old = await fetchImages(topic.category, usedIds);
+      thumbnail = old[0] ?? null;
+      if (!inlineImages.some(Boolean)) inlineImages.splice(0, inlineImages.length, ...old.slice(1));
+      writeLog("⚠️  맞는 사진을 못 찾아 카테고리 사진(검사 없음)으로 대신함");
+    }
+    const contentWithImages = injectImagesIntoContent(content, inlineImages, sectionHeads);
     if (thumbnail) writeLog(`🖼️  썸네일: ${thumbnail.url}`);
-    writeLog(`🖼️  인라인 이미지: ${inlineImages.length}장`);
+    writeLog(`🖼️  인라인 이미지: ${inlineImages.filter(Boolean).length}/${sectionHeads.length}장`);
 
     // 이미지 없이 발행 방지: 썸네일과 본문 이미지가 모두 있어야 발행한다.
     // 이미지 수집 실패(레이트리밋/키 문제) 시 slug를 소비하지 않고 중단 → 다음 실행 때 재시도.

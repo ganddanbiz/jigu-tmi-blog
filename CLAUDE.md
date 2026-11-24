@@ -9,7 +9,7 @@
 | 주제 | 세계의 신기하고 재미있는 뉴스·이야기 (지구촌 TMI) |
 | 타겟 독자 | 세계 뉴스에 관심 있는 한국 독자 |
 | AI 모델 | **Codex(ChatGPT 구독, `scripts/writer.ts`) 집필**, 실패 시 Claude Haiku 4.5가 대신 씀 (2026-11-23~, 되돌리기 `WRITER=claude`) · 검수는 컨트롤타워 검수관(Claude) |
-| 이미지 | Unsplash API + Pexels API (폴백) |
+| 이미지 | Unsplash + Pexels — 소제목별 검색어 + ChatGPT 사진 판정 (`scripts/images.ts`, 2026-11-24) |
 | DB | Neon PostgreSQL (ap-southeast-1) |
 | GitHub | ganddanbiz/jigu-tmi-blog |
 
@@ -121,10 +121,11 @@ vercel deploy --prebuilt --prod
 - 허용 태그: `<h2> <h3> <p> <ul> <ol> <li> <table> <thead> <tbody> <tr> <th> <td> <strong> <blockquote>`
 - `<h1>` 사용 금지
 
-## 이미지 처리
-- 이미지 소스: Unsplash → Pexels (폴백)
-- 카테고리별 검색어 맵 (`CATEGORY_QUERY`)
-- 썸네일: allImages[0], 인라인: h2 섹션별 삽입
+## 이미지 처리 (2026-11-24 개편 — `scripts/images.ts`)
+- 예전엔 카테고리 검색어 하나(`CATEGORY_QUERY`, 예: "animals wildlife nature")로 5장을 받아 넣어 문어 글에 새·거미 사진이 들어갔다 → 검수관 보류 반복.
+- 이제 ① ChatGPT(Codex 구독, low)가 제목·소제목(마지막 'TMI 한 줄 요약' 제외, 최대 4개)마다 영어 검색어를 정하고 ② Unsplash 2 + Pexels 2 후보를 ③ ChatGPT(medium, 사진 첨부)가 YES/NO로 판정 → 맞는 첫 사진. 다 탈락이면 그 칸은 비운다. alt는 소제목.
+- 본문 사진이 하나도 없으면 대표 이미지를 첫 칸에, 대표가 없으면 첫 본문 사진을 대표로. 둘 다 없으면 예전 카테고리 사진(검사 없음).
+- Codex가 없거나(깃허브 예비) 한도면 판정 없이 첫 후보를 쓴다(발행이 멈추지 않게). 판정 끄기 `IMAGE_VISION=0`.
 
 ## 쿠팡 광고
 - 캐러셀(`CoupangAd`)은 쿠팡 `widgets.html` iframe으로만 넣는다 (스크립트 g.js를 동적으로 넣으면 푸터 아래 왼쪽에 붙음). 가운데 정렬
