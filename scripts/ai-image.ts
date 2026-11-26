@@ -10,6 +10,22 @@ import * as os from "os";
 import * as path from "path";
 import sharp from "sharp";
 
+// 토큰 A단계(2026-11-26): AI 호출 1번마다 ~/Library/Logs/aios-usage.jsonl에 한 줄 기록. 기록 실패는 무시(발행에 영향 없음).
+function aiSpawn(job: string, bin: string, args: string[], opts: any): any {
+  const t0 = Date.now();
+  const r: any = spawnSync(bin, args, opts);
+  try {
+    const err = String(r.stderr || "");
+    const tok = err.match(/tokens used\s*:?\s*([\d,]+)/i)?.[1];
+    fs.appendFileSync(path.join(os.homedir(), "Library/Logs/aios-usage.jsonl"), JSON.stringify({
+      t: new Date().toISOString(), who: "codex", job: `jigutmi:${job}`, sec: Math.round((Date.now() - t0) / 1000),
+      ok: r.status === 0, limit: /usage limit|rate limit|quota/i.test(err), tokens: tok ? Number(tok.replace(/,/g, "")) : null,
+    }) + "\n");
+  } catch {}
+  return r;
+}
+
+
 const CODEX = [process.env.CODEX_BIN, path.join(os.homedir(), ".local/bin/codex"), "/opt/homebrew/bin/codex"]
   .find((p) => p && fs.existsSync(p));
 const GEN_DIR = path.join(os.homedir(), ".codex/generated_images");
@@ -29,7 +45,7 @@ export async function codexImage(prompt: string, log: (m: string) => void = cons
   fs.mkdirSync(work, { recursive: true });
   const before = new Set(fs.existsSync(GEN_DIR) ? fs.readdirSync(GEN_DIR) : []);
   const t0 = Date.now();
-  const r = spawnSync(CODEX!, ["exec", "--skip-git-repo-check", "--ephemeral", "-s", "read-only", "-C", work,
+  const r = aiSpawn("image", CODEX!, ["exec", "--skip-git-repo-check", "--ephemeral", "-s", "read-only", "-C", work,
     prompt + " Generate the image now with your image generation tool and do not ask any questions."], {
     encoding: "utf8", timeout: 10 * 60_000, maxBuffer: 64 << 20, stdio: ["ignore", "pipe", "pipe"],
     env: { ...process.env, PATH: `${path.dirname(CODEX!)}:/opt/homebrew/bin:${process.env.PATH ?? "/usr/bin:/bin"}`, OPENAI_API_KEY: "" },

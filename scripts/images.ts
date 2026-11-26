@@ -11,6 +11,22 @@ import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 
+// 토큰 A단계(2026-11-26): AI 호출 1번마다 ~/Library/Logs/aios-usage.jsonl에 한 줄 기록. 기록 실패는 무시(발행에 영향 없음).
+function aiSpawn(job: string, bin: string, args: string[], opts: any): any {
+  const t0 = Date.now();
+  const r: any = spawnSync(bin, args, opts);
+  try {
+    const err = String(r.stderr || "");
+    const tok = err.match(/tokens used\s*:?\s*([\d,]+)/i)?.[1];
+    fs.appendFileSync(path.join(os.homedir(), "Library/Logs/aios-usage.jsonl"), JSON.stringify({
+      t: new Date().toISOString(), who: "codex", job: `jigutmi:${job}`, sec: Math.round((Date.now() - t0) / 1000),
+      ok: r.status === 0, limit: /usage limit|rate limit|quota/i.test(err), tokens: tok ? Number(tok.replace(/,/g, "")) : null,
+    }) + "\n");
+  } catch {}
+  return r;
+}
+
+
 export interface ImageResult { url: string; attribution: string }
 
 const CODEX = [process.env.CODEX_BIN, path.join(os.homedir(), ".local/bin/codex"), "/opt/homebrew/bin/codex"]
@@ -24,7 +40,7 @@ function codex(prompt: string, effort: "low" | "medium", image?: string): string
   const out = path.join(WORK, `out-${process.pid}-${Date.now()}.txt`);
   const args = ["exec", "--skip-git-repo-check", "--ephemeral", "-s", "read-only", "-C", WORK,
     "-c", `model_reasoning_effort="${effort}"`, ...(image ? ["-i", image] : []), "-o", out, "-"];
-  const r = spawnSync(CODEX!, args, {
+  const r = aiSpawn((image ? "photo-check" : "text"), CODEX!, args, {
     input: prompt, encoding: "utf8", timeout: 4 * 60_000, maxBuffer: 16 << 20,
     env: { ...process.env, PATH: `${path.dirname(CODEX!)}:/opt/homebrew/bin:${process.env.PATH ?? "/usr/bin:/bin"}`, OPENAI_API_KEY: "" },
   });
